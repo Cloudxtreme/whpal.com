@@ -1,3 +1,1 @@
-# whpal
-
-a [Sails](http://sailsjs.org) application
+# whpal.com
