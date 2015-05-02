@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="backendApp">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/images/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="{{ description }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <title ng-bind="title">WHPAL: Web Hosting Listing</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/6.2.0/jquery.nouislider.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/6.2.0/jquery.nouislider.min.js"></script>
+  <!--AngularJS-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-sanitize.min.js"></script>
+  <!--UI Router-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-smart-table/2.0.2/smart-table.min.js"></script>
+  <script src="/frontend/app.js"></script>
+</head>
+<body ng-controller="mainController">
+  <div class="left-menu">
+    <div class="left-menu-logo">
+      <img src="/whp.png" alt="WHPAL: Web Hosting Listing"><h1 class="logo-text">WHP</h1>
+      <h1 class="logo-menu"><i class="fa fa-bars"></i></h1>
+    </div>
+    <ul>
+      <!-- <li>
+        <div class="icon"><i class="fa fa-desktop"></i></div>
+        <a href="#/webhosting"><div>Web Hosting</div><div class="desp">194 Hostings</div></a>
+      </li> -->
+      <li>
+        <div class="icon"><i class="fa fa-server"></i></div>
+        <a href="/#!/vps-listing"><div>VPS Hosting</div><div class="desp">{{vpsCount}} Hostings</div></a>
+      </li>
+      <li>
+        <div class="icon"><i class="fa fa-cloud"></i></div>
+        <a href="#!/cloud-listing"><div>Cloud Hosting</div><div class="desp">{{cloudCount}} Hostings</div></a>
+      </li>
+    </ul>
+  </div>
+  <div class="main">
+    <div class="main-header">
+      <img class="res-logo" src="/whp.png" alt="WHPAL: Web Hosting Listing"><h1>{{ currentAction }}</h1>
+      <div class="res-menu"><i class="fa fa-bars"></i></div>
+    </div>
+    <div ui-view></div>
+  </div>
+  <div ng-class="{loading:loading,finish:finish}"class="loading_bar">
+  </div>
+</body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6870203-13', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>

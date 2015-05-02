@@ -1,0 +1,92 @@
+<div class="filter-panel">
+  <div class="col-xs-4 filter-first">
+    <div class="filter-type">PLATFORM</div>
+    <div class="form-element-select">
+      <select ng-model="criteria.platform" class="form-control">
+        <option>All</option>
+        <option>OpenVZ</option>
+        <option>XEN</option>
+        <option>KVM</option>
+        <option>Windows</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-xs-4 filter-first">
+    <div class="filter-type">LOCATION</div>
+    <input type="text" class="form-control" ng-model="criteria.location">
+  </ui-select>
+</div>
+<div class="col-xs-4 filter-first noborder">
+  <div class="filter-type">PRICE (${{criteria.minprice}} - ${{criteria.maxprice}})</div>
+  <div class="priceslider filtermargin2" id="green"></div>
+</div>
+<div class="clearfix noborder"></div>
+<div class="col-xs-3 filter-second">
+  <div class="filter-type">CPU ({{criteria.mincpu}} Core - {{criteria.maxcpu}} Core)</div>
+  <div class="cpuslider filtermargin" id="green"></div>
+</div>
+<div class="col-xs-3 filter-second noborderres">
+  <div class="filter-type">RAM ({{criteria.minram}} GB - {{criteria.maxram}} GB)</div>
+  <div class="ramslider filtermargin" id="green"></div>
+</div>
+<div class="col-xs-3 filter-second">
+  <div class="filter-type">Storage ({{criteria.minhd}} GB - {{criteria.maxhd}} GB)</div>
+  <div class="form-element-select">
+    <select ng-model="criteria.hdtype" class="form-control">
+      <option>All</option>
+      <option>HDD</option>
+      <option>SSD</option>
+      <option>Hybrid</option>
+    </select>
+  </div>
+  <div class="hdslider" id="green"></div>
+</div>
+<div class="col-xs-3 filter-second noborder">
+  <div class="filter-type">TRAFFIC ({{criteria.minbandwidth}} GB - {{criteria.maxbandwidth}} GB)</div>
+  <div class="bwslider filtermargin" id="green"></div>
+</div>
+</div>
+<div class="filter-table">
+  <div class="table-wrapper nopadding">
+    <table st-table="vps" st-safe-src="displayedVPS">
+      <thead>
+        <tr>
+          <th>Provider</th>
+          <th st-sort="name">Plan</th>
+          <th st-sort="cpu">CPU</th>
+          <th st-sort="ram">RAM</th>
+          <th st-sort="hdspace">Storage</th>
+          <th st-sort="bandwidth">TRAFFIC</th>
+          <th st-sort="portSpeed">NETWORK</th>
+          <th st-sort="ipv4">IP</th>
+          <th>PLATFORM</th>
+          <th>LOCATION</th>
+          <th st-sort="price">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <tr ng-repeat="row in vps | matchFilter:criteria"> -->
+        <tr ng-repeat="row in vps">
+          <td data-title="Provider">{{row.provider.name}}</td>
+          <td data-title="Plan"><a href="/#!/vps/{{row.slug}}">{{row.name}}</a> <span ng-show="row.remark" tooltip-placement="left"tooltip-animation="false" tooltip-html-unsafe="{{row.remark | locationDetailFilter}}"><i class="fa fa-info-circle"></i></span></td>
+          <td data-title="CPU">{{row.cpu | cpuFilter}}</td>
+          <td data-title="RAM">{{row.ram}} GB</td>
+          <td data-title="Harddsk">{{row.hdspace}} GB {{row.hdtype}}</td>
+          <td data-title="Bandwidth">{{row.bandwidth | bwFilter}}</td>
+          <td data-title="Port Speed">{{row.portSpeed | portSpeedFilter}}</td>
+          <td data-title="IP"><span ng-bind-html="row.ipv4 | ipv4Filter"></span><span ng-bind-html="row.ipv6 | ipv6Filter"></span></td>
+          <td data-title="Platform">{{row.virtualization}}</td>
+          <td data-title="Location">{{row.location | locationFilter}} <span tooltip-placement="left"tooltip-animation="false" tooltip-html-unsafe="{{row.location | locationDetailFilter}}"><i class="fa fa-globe"></i></span></td>
+          <td data-title="Price">${{row.price}} / month<div><a rel="nofollow" class="signup-btn btn" href="{{row.link}}" target="_blank">SIGN UP</a></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="12" class="text-center">
+            <div st-pagination="" st-items-by-page="10" st-displayed-pages="10"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

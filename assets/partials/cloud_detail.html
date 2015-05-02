@@ -1,0 +1,112 @@
+<div class="col-md-12 main-view">
+  <div class="form-layout">
+    <div class="form-title">
+      {{crud_action}}
+    </div>
+    <div ng-show="msg" class="msg">
+      <i class="fa fa-check"></i> {{msg}}
+    </div>
+    <form ng-submit="updateCloud()">
+      <div class="form-group first-group">
+        <label for="cloud_provider" class="col-xs-3">Provider</label>
+        <input required ng-model="cloud.provider" class="col-xs-4" name="name" type="text" id="cloud_provider">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_name" class="col-xs-3">Plan</label>
+        <input required ng-model="cloud.name" class="col-xs-4" name="name" type="text" id="cloud_name">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_cpu" class="col-xs-3">CPU</label>
+        <input required ng-model="cloud.cpu" class="col-xs-4" name="name" type="text" id="cloud_cpu">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_maxCpu" class="col-xs-3">Max CPU</label>
+        <input ng-model="cloud.maxCpu" class="col-xs-4" name="name" type="text" id="cloud_maxCpu">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_cpuCharge" class="col-xs-3">CPU Charge</label>
+        <input ng-model="cloud.cpuCharge" class="col-xs-4" name="name" type="text" id="cloud_cpuCharge">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_ram" class="col-xs-3">RAM</label>
+        <input required ng-model="cloud.ram" class="col-xs-4" name="name" type="text" id="cloud_ram">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_maxRam" class="col-xs-3">Max RAM</label>
+        <input ng-model="cloud.maxRam" class="col-xs-4" name="name" type="text" id="cloud_maxRam">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_ramCharge" class="col-xs-3">RAM Charge</label>
+        <input ng-model="cloud.ramCharge" class="col-xs-4" name="name" type="text" id="cloud_ramCharge">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_hdspace" class="col-xs-3">Harddisk Space</label>
+        <input required ng-model="cloud.hdspace" class="col-xs-4" name="name" type="text" id="cloud_hdspace">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_maxHd" class="col-xs-3">Max Harddisk Space</label>
+        <input ng-model="cloud.maxHd" class="col-xs-4" name="name" type="text" id="cloud_maxHd">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_hdtype" class="col-xs-3">Harddisk Type</label>
+        <input required ng-model="cloud.hdtype" class="col-xs-4" name="name" type="text" id="cloud_hdtype">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_hdCharge" class="col-xs-3">Harddisk Charge</label>
+        <input ng-model="cloud.hdCharge" class="col-xs-4" name="name" type="text" id="cloud_hdCharge">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_bandwidth" class="col-xs-3">Bandwidth</label>
+        <input required ng-model="cloud.bandwidth" class="col-xs-4" name="name" type="text" id="cloud_bandwidth">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_bandwidthCharge" class="col-xs-3">Bandwidth Charge</label>
+        <input ng-model="cloud.bandwidthCharge" class="col-xs-4" name="name" type="text" id="cloud_bandwidthCharge">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_portSpeed" class="col-xs-3">Port Speed</label>
+        <input required ng-model="cloud.portSpeed" class="col-xs-4" name="name" type="text" id="cloud_portSpeed">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_ipv4" class="col-xs-3">ipv4</label>
+        <input required ng-model="cloud.ipv4" class="col-xs-4" name="name" type="text" id="cloud_ipv4">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_ipv4Charge" class="col-xs-3">ipv4 Charge</label>
+        <input ng-model="cloud.ipv4Charge" class="col-xs-4" name="name" type="text" id="cloud_ipv4Charge">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_ipv6" class="col-xs-3">ipv6</label>
+        <input required ng-model="cloud.ipv6" class="col-xs-4" name="name" type="text" id="cloud_ipv6">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_ipv6Charge" class="col-xs-3">ipv6 Charge</label>
+        <input ng-model="cloud.ipv6Charge" class="col-xs-4" name="name" type="text" id="cloud_ipv6Charge">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_location" class="col-xs-3">Location</label>
+        <input required ng-model="cloud.location" class="col-xs-4" name="name" type="text" id="cloud_location">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_remark" class="col-xs-3">Remark</label>
+        <input ng-model="cloud.remark" class="col-xs-4" name="name" type="text" id="cloud_remark">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_price" class="col-xs-3">Hourly Price</label>
+        <input ng-model="cloud.hourPrice" class="col-xs-4" name="name" type="text" id="cloud_price">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_price" class="col-xs-3">Monthly Price</label>
+        <input ng-model="cloud.monthPrice" class="col-xs-4" name="name" type="text" id="cloud_price">
+      </div>
+      <div class="form-group ">
+        <label for="cloud_link" class="col-xs-3">Link</label>
+        <input required ng-model="cloud.link" class="col-xs-4" name="name" type="text" id="cloud_link">
+      </div>
+      <div class="form-bottom">
+        <input class="btn" type="submit">
+        <button class="btn" ng-click="copyCloud($event)">Copy</button>
+      </div>
+    </form>
+  </div>
+</div>

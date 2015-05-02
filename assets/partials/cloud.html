@@ -1,0 +1,22 @@
+<div class="col-md-12 main-view">
+  <div class="chart">
+    <div class="normal-content">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Plan</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="row in cloud">
+            <td>{{row.provider.name}}</td>
+            <td>{{row.name}}</td>
+            <td><a href="#/cloud/detail/{{row.id}}"><button ng-click="addVPS()" class="btn">Modify</button></a> <button ng-click="deleteCloud(row.id)" class="btn btn-warning">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

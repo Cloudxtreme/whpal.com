@@ -1,0 +1,76 @@
+<div class="hosting-detail col-xs-6">
+    <table class="hosting-detail-table">
+        <caption><i class="fa fa-server"></i> Cloud Detail</caption>
+        <tr>
+            <th>Provider</th>
+            <td data-title="Provider">{{cloud.provider.name}}</td>
+        </tr>
+        <tr>
+            <th>Plan</th>
+            <td data-title="Plan">{{cloud.name}}</td>
+        </tr>
+        <tr>
+            <th>CPU</th>
+            <td data-title="CPU">{{cloud.cpu | cpuFilter}}<span ng-bind-html="cloud.cpuCharge | cpuChargeFilter"></td>
+        </tr>
+        <tr>
+            <th>RAM</th>
+            <td data-title="RAM">{{cloud.ram | ramFilter}}<div ng-bind-html="cloud.ramCharge | ramChargeFilter"></div></td>
+        </tr>
+        <tr>
+            <th>Storage</th>
+            <td data-title="Storage">{{cloud.hdspace}} GB {{cloud.hdtype}}<div ng-bind-html="cloud.hdCharge | hdChargeFilter"></div></td>
+        </tr>
+        <tr>
+            <th>Traffic</th>
+            <td data-title="Bandwidth"><div ng-bind-html="cloud.bandwidth | bwFilter"></div><div ng-bind-html="cloud.bandwidthCharge | bwChargeFilter"></div></td>
+        </tr>
+        <tr>
+            <th>Network</th>
+            <td data-title="Port Speed">{{cloud.portSpeed | portSpeedFilter}}</td>
+        </tr>
+        <tr>
+            <th>IP</th>
+            <td data-title="IP"><span ng-bind-html="cloud.ipv4 | ipv4Filter"></span><div ng-bind-html="cloud.ipv4Charge | ipChargeFilter"></div><span ng-bind-html="cloud.ipv6 | ipv6Filter"></span><div ng-bind-html="cloud.ipv6Charge | ipChargeFilter"></div></td>
+        </tr>
+        <tr>
+            <th>Location</th>
+            <td data-title="Location" ng-bind-html="cloud.location | locationDetailFilter"></td>
+        </tr>
+        <tr ng-show="cloud.remark">
+            <th>Remarks</th>
+            <td data-title="Remarks" ng-bind-html="cloud.remark | locationDetailFilter"></td>
+        </tr>
+        <tr>
+            <th>PRICE</th>
+            <td data-title="Price">${{cloud.monthPrice}} / month<div><a rel="nofollow" class="signup-btn btn" href="{{cloud.link}}" target="_blank">SIGN UP</a></td>
+        </tr>
+    </table>
+</div>
+<div class="hosting-detail col-xs-6">
+    <div class="table-wrapper nopadding">
+        <table class="similar-plan-table">
+            <caption><i class="fa fa-list"></i> Similar Plans</caption>
+            <thead>
+                <tr>
+                    <th>Plan</th>
+                    <th>CPU</th>
+                    <th>RAM</th>
+                    <th>Harddisk</th>
+                    <th>Network</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in plans">
+                    <td data-title="Plan"><a href="/#!/cloud/{{row.slug}}">{{row.provider.name}} - {{row.name}}</a></td>
+                    <td data-title="CPU">{{row.cpu | cpuFilter}}</td>
+                    <td data-title="RAM">{{row.ram}} GB</td>
+                    <td data-title="Harddsk">{{row.hdspace}} GB {{row.hdtype}}</td>
+                    <td data-title="Bandwidth">{{row.bandwidth | bwFilter}}</td>
+                    <td data-title="Price">${{row.price}} / month</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

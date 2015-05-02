@@ -1,0 +1,80 @@
+<div class="hosting-detail col-xs-6">
+    <table class="hosting-detail-table">
+        <caption><i class="fa fa-server"></i> VPS Detail</caption>
+        <tr>
+            <th>Provider</th>
+            <td data-title="Provider">{{vps.provider.name}}</td>
+        </tr>
+        <tr>
+            <th>Plan</th>
+            <td data-title="Plan">{{vps.name}}</td>
+        </tr>
+        <tr>
+            <th>CPU</th>
+            <td data-title="CPU">{{vps.cpu | cpuFilter}}</td>
+        </tr>
+        <tr>
+            <th>RAM</th>
+            <td data-title="RAM">{{vps.ram}} GB</td>
+        </tr>
+        <tr>
+            <th>Storage</th>
+            <td data-title="Storage">{{vps.hdspace}} GB {{vps.hdtype}}</td>
+        </tr>
+        <tr>
+            <th>Traffic</th>
+            <td data-title="Bandwidth">{{vps.bandwidth | bwFilter}}</td>
+        </tr>
+        <tr>
+            <th>Network</th>
+            <td data-title="Port Speed">{{vps.portSpeed | portSpeedFilter}}</td>
+        </tr>
+        <tr>
+            <th>IP</th>
+            <td data-title="IP"><span ng-bind-html="vps.ipv4 | ipv4Filter"></span><span ng-bind-html="vps.ipv6 | ipv6Filter"></span></td>
+        </tr>
+        <tr>
+            <th>Platform</th>
+            <td data-title="Platform">{{vps.virtualization}}</td>
+        </tr>
+        <tr>
+            <th>Location</th>
+            <td data-title="Location" ng-bind-html="vps.location | locationDetailFilter"></td>
+        </tr>
+        <tr ng-show="vps.remark">
+            <th>Remarks</th>
+            <td data-title="Remarks" ng-bind-html="vps.remark | locationDetailFilter"></td>
+        </tr>
+        <tr>
+            <th>PRICE</th>
+            <td data-title="Price">${{vps.price}} / month<div><a rel="nofollow" class="signup-btn btn" href="{{vps.link}}" target="_blank">SIGN UP</a></td>
+        </tr>
+    </table>
+</div>
+<div class="hosting-detail col-xs-6">
+    <div class="table-wrapper nopadding">
+        <table class="similar-plan-table">
+            <caption><i class="fa fa-list"></i> Similar Plans</caption>
+            <thead>
+                <tr>
+                    <th>Plan</th>
+                    <th>CPU</th>
+                    <th>RAM</th>
+                    <th>Harddisk</th>
+                    <th>Network</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in plans">
+                    <td data-title="Plan"><a href="/#!/vps/{{row.slug}}">{{row.provider.name}} - {{row.name}}</a></td>
+                    <td data-title="CPU">{{row.cpu | cpuFilter}}</td>
+                    <td data-title="RAM">{{row.ram}} GB</td>
+                    <td data-title="Harddsk">{{row.hdspace}} GB {{row.hdtype}}</td>
+                    <td data-title="Bandwidth">{{row.bandwidth | bwFilter}}</td>
+                    <td data-title="Price">${{row.price}} / month</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

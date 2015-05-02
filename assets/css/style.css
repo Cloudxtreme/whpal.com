@@ -1,0 +1,468 @@
+@import url(http://fonts.googleapis.com/css?family=Montserrat:700);
+@import url(http://fonts.googleapis.com/css?family=Hind:400,700);
+*{
+  font-family: 'Hind', sans-serif;
+}
+html,body{
+  height: 100%;
+  font-size: 14px;
+}
+h1, h2, h3, h4, h5 {
+  padding: 0;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+.res-menu{
+  display: none;
+}
+ul{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.nopadding{
+  padding: 0;
+}
+.noborder{
+  border-right: 0 !important;
+}
+.left-menu{
+  position: fixed;
+  width: 240px;
+  height: 100%;
+  background: #272B35;
+  color: #fff;
+  z-index: 65535;
+}
+.left-menu-logo{
+  color: #fff;
+  padding: 1rem 2.5rem;
+  overflow: auto;
+}
+.logo-menu{
+  display: none;
+  text-align: center;
+}
+.logo-text{
+  float: left;
+  line-height: 54px;
+  margin-left: 10px;
+}
+.logo-menu > .fa{
+  line-height: 54px;
+}
+.left-menu-logo img{
+  float: left;
+  max-height: 54px;
+}
+.left-menu > ul{
+  background: #34414C;
+  height: 100%;
+}
+.left-menu > ul > li{
+  padding: 1.5rem 23px;
+  clear: both;
+  overflow: hidden;
+}
+.left-menu > ul > li:hover{
+  background: #42586B;
+}
+.left-menu > ul > li > .icon{
+  float: left;
+  width: 100px;
+}
+.left-menu > ul > li > .icon > .fa{
+  background: #384D81;
+  padding: 1.5rem;
+  border-radius: 50%;
+}
+.left-menu > ul > li > a{
+  position: relative;
+  top: 6px;
+  float: right;
+  font-weight: bold;
+  text-align: right;
+  color: #fff;
+  text-decoration: none;
+}
+
+.left-menu > ul > li > a > .desp{
+  font-weight: normal;
+  color: #aaa;
+}
+
+.main{
+  position: relative;
+  padding-left: 240px;
+  min-height: 100%;
+  height: auto;
+  background: #F0F0F0;
+  overflow: hidden;
+}
+.main-header{
+  padding: 1rem 2.5rem;
+  background: #597E81;
+  color: #FFF;
+  overflow: auto;
+}
+.main-header > img{
+  display: none;
+  float: left;
+  max-height: 54px;
+}
+.main-header > h1{
+  float: left;
+  line-height: 54px;
+}
+.filter-panel{
+  background: #f0f0f0;
+  padding: 2rem 2rem 0.5rem 2rem;
+  overflow: hidden;
+  clear: both;
+}
+.filter-type{
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.filter-panel select{
+  position: relative;
+  margin-bottom: 1rem;
+  padding: 0rem 1rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.form-element-select{
+  position: relative;
+}
+.form-element-select::before{
+  content: "\f078";
+  font-family: FontAwesome;
+  color: #666;
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  display: block;
+  z-index: 9999;
+  pointer-events: none;
+}
+.filter-first select{
+  margin-bottom: 0;
+}
+.filter-panel .btn-group{
+  margin-bottom: 1rem
+}
+
+.filter-panel .btn-group > button{
+  padding: .8rem 2rem;
+}
+
+.filter-panel .btn-group > button.btnhover{
+  background: #D5D5D5;
+  color: #666;
+}
+
+.filter-panel > div{
+  margin-bottom: 1.5rem;
+  border-right: 1px solid #ccc;
+  padding: 0.5rem 3rem;
+}
+
+.filter-panel > div.filter-first{
+  height: 85px;
+}
+
+.filter-panel > div.filter-second{
+  height: 120px;
+}
+
+.filtermargin2{
+  margin-top: 20px;
+}
+
+.filtermargin{
+  margin-top: 40px;
+}
+
+.filter-panel .clearfix{
+  margin: 1.5rem 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.table-wrapper{
+  width: 100%;
+  float: none;
+  margin: 0 auto;
+  background: #B5E4E4;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.table-header{
+  width: 100%;
+  background: #56BBBB;
+  color: #EFEFEF;
+}
+.table-header > .title{
+  font-size: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  padding: 2rem;
+}
+.filter-table table{
+  width: 100%;
+}
+.filter-table table > thead{
+  background: #57A682;
+}
+.filter-table table > thead > tr > th{
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #efefef;
+  padding: 1.5rem;
+}
+.filter-table table > tbody{
+  background: #fff;
+}
+.filter-table table > tbody > tr{
+  border-bottom: 1px solid #ccc;
+}
+.filter-table table > tbody > tr:hover{
+  background: #eee;
+}
+.filter-table table > tbody > tr > td{
+  padding: 1.5rem;
+}
+.filter-table table > tfoot{
+  background: #fff;
+}
+.signup-btn{
+  background: #597E81;
+}
+a.signup-btn{
+  color: #fff;
+  font-weight: 700;
+}
+
+.hosting-detail{
+  margin: 15px 0;
+}
+
+.hosting-detail-table, 
+.similar-plan-table{
+  background: #fff;
+  width: 100%;
+}
+
+.hosting-detail caption{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.6rem;
+  padding: 1.5rem 2.5rem;  
+  background: #57A682;
+  color: #fff;
+}
+
+.hosting-detail td, 
+.hosting-detail th{
+  padding: 1.5rem 2.5rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.similar-plan-table td, 
+.similar-plan-table th{
+  border-bottom: 1px solid #ccc;
+}
+
+.similar-plan-table tr:hover{
+  background: #eee;
+}
+
+.similar-plan-table thead tr{
+  background: #F5F5F5;
+}
+@media screen and (max-width: 1600px) {
+  .filter-panel>div.filter-first {
+    height: 120px;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .left-menu{
+    width: 96px;
+    overflow: hidden;
+  }
+  .left-menu-hover{
+    width: 300px;
+  }
+  .logo-text{
+    display: none;
+  }
+  .left-menu-logo img{
+    display: none;
+  }
+  .logo-menu{
+    display: block;
+  }
+  .left-menu-hover .logo-menu{
+    display: none;
+  }
+  .left-menu-hover .left-menu-logo img,
+  .left-menu-hover .logo-text{
+    display: block;
+  }
+  .left-menu > ul > li > a{
+    display: none;
+  }
+  .left-menu-hover > ul > li > a{
+    display: block;
+  }
+  .main{
+    padding-left: 96px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .col-xs-3{
+    width: 50%;
+  }
+  .col-xs-4{
+    width: 100%;
+  }
+  .filtermargin2{
+    margin-top: 5px;
+  }
+  .filter-first{
+    border-right: 0 !important;
+  }
+  .noborderres{
+    border: 0 !important;
+  }
+  .hosting-detail{
+    width: 100%;
+  }
+  .filter-panel .btn-group{
+    margin-bottom: 0;
+  }
+  .col-xs-3 .btn-group{
+    margin-bottom: 10px;
+  }
+  .filter-panel>div.filter-first {
+    height: auto;
+  }
+}
+@media screen and (max-width: 600px) {
+  .left-menu{
+    left: -96px;
+  }
+  .col-xs-6{
+    width: 100%;
+  }
+  .left-menu-hover{
+    left: 0px;
+  }
+  .main{
+    padding-left: 0px;
+  }
+  .main-header{
+    padding: 1rem 3.5rem 1rem 3rem;
+  }
+  .main-header > img{
+    display: block;
+  }
+  .res-logo{
+    margin-right: 10px;
+  }
+  .main-header > h1{
+    font-size: 1.6rem;
+  }
+  .filter-panel{
+    padding: 1rem;
+  }
+  .filter-panel > div{
+    border-right: 0;
+  }
+  .filter-panel .clearfix{
+    display: none;
+  }
+  .filter-panel > div{
+    margin-bottom: .5rem;
+  }
+  .filter-panel > div.filter-second, .filter-panel > div.filter-first{
+    height: auto;
+  }
+  .filtermargin, 
+  .filtermargin2{
+    margin-top: 5px;
+  }
+  .filter-table table > tbody > tr,
+  .hosting-detail table > tbody > tr{
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+  }
+  .col-xs-3, 
+  .col-xs-4{
+    width: 100%;
+  }
+  .filter-table table, thead, tbody, tfoot, th, td, tr ,
+  .hosting-detail thead, tbody, tfoot, th, td, tr{
+    display: block; 
+  }
+  .filter-table thead tr ,
+  .hosting-detail thead tr,
+  .hosting-detail th{ 
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .filter-table tr,
+  .hosting-detail tr{ 
+    border: 1px solid #ccc; 
+  }
+
+  .hosting-detail-table tr{
+    border:0;
+  }
+  .filter-table tbody > tr > td,
+  .hosting-detail tbody > tr > td{ 
+    /* Behave  like a "row" */
+    border: none;
+    position: relative;
+    padding-left: 50% !important; 
+  }
+
+  .filter-table tbody > tr > td:before,
+  .hosting-detail tbody > tr > td:before{ 
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    content: attr(data-title)": ";
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 15px;
+    width: 45%; 
+    padding-right: 10px; 
+    white-space: nowrap;
+  }
+  .filter-table table > tbody > tr > td,
+  .hosting-detail table > tbody > tr > td{
+    padding: 0.5rem;
+  }
+
+  tfoot{
+    width: 100%;
+  }
+  .filter-table tfoot tr,
+  .hosting-detail tfoot tr{
+    border: 0;
+    border-top: 1px solid #ccc;
+  }
+
+  .res-menu{
+    display: block;
+    position: absolute;
+    font-size: 2rem;
+    top: 25px;
+    right: 15px;
+    cursor: pointer;
+  }
+}

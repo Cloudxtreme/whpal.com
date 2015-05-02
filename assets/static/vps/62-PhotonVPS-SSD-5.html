@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title ng-bind="title" class="ng-binding">PhotonVPS - SSD - 5</title><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="PhotonVPS 16GB VPS 130 GB SSD in Los Angeles, CA, US for $160.95/month">
+<meta name="keywords" content="VPS, hosting, web hosting, CDN">
+<link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/images/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/images/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/images/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+<link rel="manifest" href="/images/manifest.json">
+<link href="//cdnjs.cloudflare.com/ajax/libs/noUiSlider/6.2.0/jquery.nouislider.min.css" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div class="left-menu">
+    <div class="left-menu-logo">
+      <h1 class="logo-text">WHPAL</h1>
+      <h1 class="logo-menu"><i class="fa fa-bars"></i></h1>
+    </div>
+    <ul>
+      <!-- <li>
+        <div class="icon"><i class="fa fa-desktop"></i></div>
+        <a href="#/webhosting"><div>Web Hosting</div><div class="desp">194 Hostings</div></a>
+      </li> -->
+      <li>
+        <div class="icon"><i class="fa fa-server"></i></div>
+        <a href="/#!/vps-listing"><div>VPS Hosting</div><div class="desp ng-binding">76 Hostings</div></a>
+      </li>
+      <!-- <li>
+        <div class="icon"><i class="fa fa-cloud"></i></div>
+        <a href="#/cloud"><div>Cloud Hosting</div><div class="desp">194 Hostings</div></a>
+      </li> -->
+    </ul>
+  </div>
+  <div class="main">
+    <div class="main-header">
+      <h1 class="ng-binding">PhotonVPS - SSD - 5</h1>
+    </div>
+    <!-- uiView:  --><div ui-view="" class="ng-scope"><div class="hosting-detail col-xs-6 ng-scope">
+    <table class="hosting-detail-table">
+        <caption><i class="fa fa-server"></i> VPS Detail</caption>
+        <tbody><tr>
+            <th>Provider</th>
+            <td data-title="Provider" class="ng-binding">PhotonVPS</td>
+        </tr>
+        <tr>
+            <th>Plan</th>
+            <td data-title="Plan" class="ng-binding">SSD - 5</td>
+        </tr>
+        <tr>
+            <th>CPU</th>
+            <td data-title="CPU" class="ng-binding">4 Core</td>
+        </tr>
+        <tr>
+            <th>RAM</th>
+            <td data-title="RAM" class="ng-binding">16 GB</td>
+        </tr>
+        <tr>
+            <th>Harddisk</th>
+            <td data-title="Harddsk" class="ng-binding">130 GB SSD</td>
+        </tr>
+        <tr>
+            <th>Traffic</th>
+            <td data-title="Bandwidth" class="ng-binding">10000+ GB</td>
+        </tr>
+        <tr>
+            <th>Network</th>
+            <td data-title="Port Speed" class="ng-binding">1000 Mbps</td>
+        </tr>
+        <tr>
+            <th>IP</th>
+            <td data-title="IP"><span ng-bind-html="vps.ipv4 | ipv4Filter" class="ng-binding">Unknown<br></span><span ng-bind-html="vps.ipv6 | ipv6Filter" class="ng-binding"></span></td>
+        </tr>
+        <tr>
+            <th>Platform</th>
+            <td data-title="Platform" class="ng-binding">Unknown</td>
+        </tr>
+        <tr>
+            <th>Location</th>
+            <td data-title="Location" ng-bind-html="vps.location | locationDetailFilter" class="ng-binding">Los Angeles, CA, US<br>Dallas, Texas, US<br></td>
+        </tr>
+        <tr ng-show="vps.remark">
+            <th>Remarks</th>
+            <td ng-bind-html="vps.remark | locationDetailFilter" class="ng-binding">Managed<br></td>
+        </tr>
+        <tr>
+            <th>PRICE</th>
+            <td data-title="Price" class="ng-binding">$160.95 / month<div><a rel="nofollow" class="signup-btn btn" href="http://www.photonvps.com/linux.html" target="_blank">SIGN UP</a></div></td>
+        </tr>
+    </tbody></table>
+</div>
+<div class="hosting-detail col-xs-6 ng-scope">
+    <div class="table-wrapper nopadding">
+        <table class="similar-plan-table">
+            <caption><i class="fa fa-list"></i> Similar Plans</caption>
+            <thead>
+                <tr>
+                    <th>Plan</th>
+                    <th>CPU</th>
+                    <th>RAM</th>
+                    <th>Harddisk</th>
+                    <th>Network</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ngRepeat: row in plans --><tr ng-repeat="row in plans" class="ng-scope">
+                    <td data-title="Provider"><a href="/#!/vps/6-mnxio-16GB" class="ng-binding">mnx.io - 16GB</a></td>
+                    <td data-title="Plan" class="ng-binding">8 Core</td>
+                    <td data-title="RAM" class="ng-binding">16 GB</td>
+                    <td data-title="Harddsk" class="ng-binding">400 GB SSD</td>
+                    <td data-title="Bandwidth" class="ng-binding">6000 GB</td>
+                    <td data-title="Price" class="ng-binding">$150 / month</td>
+                </tr><!-- end ngRepeat: row in plans --><tr ng-repeat="row in plans" class="ng-scope">
+                    <td data-title="Provider"><a href="/#!/vps/7-mnxio-24GB" class="ng-binding">mnx.io - 24GB</a></td>
+                    <td data-title="Plan" class="ng-binding">8 Core</td>
+                    <td data-title="RAM" class="ng-binding">24 GB</td>
+                    <td data-title="Harddsk" class="ng-binding">500 GB SSD</td>
+                    <td data-title="Bandwidth" class="ng-binding">8000 GB</td>
+                    <td data-title="Price" class="ng-binding">$200 / month</td>
+                </tr><!-- end ngRepeat: row in plans --><tr ng-repeat="row in plans" class="ng-scope">
+                    <td data-title="Provider"><a href="/#!/vps/68-YOURSERVER-32GB" class="ng-binding">YOURSERVER - 32GB</a></td>
+                    <td data-title="Plan" class="ng-binding">8 Core</td>
+                    <td data-title="RAM" class="ng-binding">32 GB</td>
+                    <td data-title="Harddsk" class="ng-binding">480 GB SSD</td>
+                    <td data-title="Bandwidth" class="ng-binding">10000+ GB</td>
+                    <td data-title="Price" class="ng-binding">$199.93 / month</td>
+                </tr><!-- end ngRepeat: row in plans --><tr ng-repeat="row in plans" class="ng-scope">
+                    <td data-title="Provider"><a href="/#!/vps/8-mnxio-32GB" class="ng-binding">mnx.io - 32GB</a></td>
+                    <td data-title="Plan" class="ng-binding">12 Core</td>
+                    <td data-title="RAM" class="ng-binding">32 GB</td>
+                    <td data-title="Harddsk" class="ng-binding">600 GB SSD</td>
+                    <td data-title="Bandwidth" class="ng-binding">10000+ GB</td>
+                    <td data-title="Price" class="ng-binding">$250 / month</td>
+                </tr><!-- end ngRepeat: row in plans -->
+            </tbody>
+        </table>
+    </div>
+</div></div>
+  </div>
+  <div ng-class="{loading:loading,finish:finish}" class="loading_bar finish">
+  </div>
+
+
+</body>
+</html>
