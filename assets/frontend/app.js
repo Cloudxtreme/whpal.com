@@ -6,7 +6,7 @@ var app = angular.module('backendApp', [
   ])
   .run(['$rootScope', '$state', '$stateParams', '$http', 'VPS', 'Cloud',
     function($rootScope, $state, $stateParams, $http, VPS, Cloud) {
-      $rootScope.title = 'WHPAL: Web Hosting Listing';
+      $rootScope.title = 'WHPal: Web Hosting Listing';
       $rootScope.description = 'WHPal provides a comprehensive list of web hosting service. You may even sort, filter and compare different plans.';
       $rootScope.keywords = 'VPS, hosting, web hosting, CDN';
       VPS.total().then(function(res) {
@@ -38,7 +38,7 @@ var app = angular.module('backendApp', [
         controller: ['$rootScope', '$scope', '$stateParams', 'vps', 'VPS', 'plans',
           function($rootScope, $scope, $stateParams, vps, VPS, plans) {
             $scope.vps = vps.data;
-            $rootScope.title = $scope.vps.provider.name + " - " + $scope.vps.name + ' ' + $scope.vps.ram + 'GB RAM VPS';
+            $rootScope.title = $scope.vps.provider.name + " - " + $scope.vps.name + ' ' + $scope.vps.ram + 'GB RAM VPS | WHPal';
             if ($scope.vps.location !== '') {
               $rootScope.description = $scope.vps.provider.name + ' ' + $scope.vps.ram + 'GB RAM VPS ' + $scope.vps.hdspace + ' GB ' + $scope.vps.hdtype + ' in ' + $scope.vps.location.split('|')[0] + ' for $' + $scope.vps.price + '/month';
             } else {
@@ -60,7 +60,7 @@ var app = angular.module('backendApp', [
         url: "/vps-listing",
         controller: ['$rootScope', '$scope', '$stateParams', 'vps', 'VPS',
           function($rootScope, $scope, $stateParams, vps, VPS) {
-            $rootScope.title = 'WHPAL: Web Hosting Listing';
+            $rootScope.title = 'WHPal: Web Hosting Listing';
             $rootScope.description = 'WHPal provides a comprehensive list of web hosting service. You may even sort, filter and compare different plans.';
             $rootScope.keywords = 'VPS, hosting, web hosting, CDN';
 
@@ -271,7 +271,7 @@ var app = angular.module('backendApp', [
         controller: ['$rootScope', '$scope', '$stateParams', 'cloud', 'Cloud', 'plans',
           function($rootScope, $scope, $stateParams, cloud, VPS, plans) {
             $scope.cloud = cloud.data;
-            $rootScope.title = $scope.cloud.provider.name + " - " + $scope.cloud.name + ' ' + $scope.cloud.ram + 'GB RAM Cloud';
+            $rootScope.title = $scope.cloud.provider.name + " - " + $scope.cloud.name + ' ' + $scope.cloud.ram + 'GB RAM Cloud | WHPal';
             if ($scope.cloud.location !== '') {
               $rootScope.description = $scope.cloud.provider.name + ' ' + $scope.cloud.ram + 'GB Cloud ' + $scope.cloud.hdspace + ' GB ' + $scope.cloud.hdtype + ' in ' + $scope.cloud.location.split('|')[0] + ' for $' + $scope.cloud.monthPrice + '/month';
             } else {
@@ -293,7 +293,7 @@ var app = angular.module('backendApp', [
         url: "/cloud-listing",
         controller: ['$rootScope', '$scope', '$stateParams', 'cloud', 'Cloud',
           function($rootScope, $scope, $stateParams, cloud, Cloud) {
-            $rootScope.title = 'WHPAL: Web Hosting Listing';
+            $rootScope.title = 'WHPal: Web Hosting Listing';
             $rootScope.description = 'WHPal provides a comprehensive list of web hosting service. You may even sort, filter and compare different plans.';
             $rootScope.keywords = 'VPS, hosting, web hosting, CDN';
 
@@ -337,7 +337,7 @@ var app = angular.module('backendApp', [
               minhd: 0,
               maxhd: 1000,
               mincpu: 0,
-              maxcpu: 16,
+              maxcpu: 24,
               minprice: 0,
               maxprice: 1000,
               location: '',
@@ -419,6 +419,15 @@ var app = angular.module('backendApp', [
               $scope.criteria.maxbandwidth = parseInt($(this).val()[1], 10);
               $scope.$apply();
             });
+          }
+        ]
+      });
+      $stateProvider.state("backend_about_us", {
+        templateUrl: "/frontend/partials/about-us.html",
+        url: "/about-us",
+        controller: ['$rootScope', '$scope', '$stateParams',
+          function($rootScope, $scope, $stateParams) {
+            $rootScope.currentAction = "About US";
           }
         ]
       });

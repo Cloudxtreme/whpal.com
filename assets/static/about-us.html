@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title ng-bind="title" class="ng-binding">WHPal: Web Hosting Listing</title><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="WHPal provides a comprehensive list of web hosting service. You may even sort, filter and compare different plans.">
+<meta name="keywords" content="VPS, hosting, web hosting, CDN">
+<link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/images/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/images/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/images/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+<link rel="manifest" href="/images/manifest.json">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/6.2.0/jquery.nouislider.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/style.css?v=$8sdfljIUGIyg">
+</head>
+<body>
+
+  <div class="left-menu">
+    <div class="left-menu-logo">
+      <img src="/whp.png" alt="WHPAL: Web Hosting Listing"><h1 class="logo-text">WHP</h1>
+      <h1 class="logo-menu"><i class="fa fa-bars"></i></h1>
+    </div>
+    <ul>
+      <!-- <li>
+        <div class="icon"><i class="fa fa-desktop"></i></div>
+        <a href="#/webhosting"><div>Web Hosting</div><div class="desp">194 Hostings</div></a>
+      </li> -->
+      <li ng-class="{currentTab: currentTab.indexOf('backend_vps') &gt; -1}">
+        <a href="/#!/vps-listing">
+          <div class="icon"><i class="fa fa-server"></i></div>
+          <div class="tab-name">VPS Hosting</div>
+          <div class="desp ng-binding">76 Hostings</div>
+        </a>
+      </li>
+      <li ng-class="{currentTab: currentTab.indexOf('backend_cloud') &gt; -1}">
+        <a href="#!/cloud-listing">
+          <div class="icon"><i class="fa fa-cloud"></i></div>
+          <div class="tab-name">Cloud Hosting</div>
+          <div class="desp ng-binding">2 Hostings</div>
+        </a>
+      </li>
+      <li ng-class="{currentTab: currentTab.indexOf('backend_about_us') &gt; -1}" class="currentTab">
+        <a href="#!/about-us">
+          <div class="icon"><i class="fa fa-user"></i></div>
+          <div class="tab-name">About US</div>
+          <div class="desp">Get in touch</div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="main">
+    <div class="main-header">
+      <img class="res-logo" src="/whp.png" alt="WHPAL: Web Hosting Listing"><h1 class="ng-binding">About US</h1>
+      <div class="res-menu"><i class="fa fa-bars"></i></div>
+    </div>
+    <!-- uiView:  --><div ui-view="" class="ng-scope"><div class="col-xs-6 misc ng-scope">
+  <div class="col-header"><i class="fa fa-user"></i> Who We Are</div>
+  <div class="col-content">
+    <h2>Introduction</h2>
+    <p>We're a few developers that would like to collect the information of the base(hosting) in order to make our application/websites go live. Web Hosting Pal(WHPal) is a hub that we would like to share what we've found in favor of anyone who would like to search such information. </p>
+    <h2>How to find us</h2>
+    <p>If you have any queries or comments, you may find us via email: admin@whpal.com. To keep connected with us, why don't follow us on <a rel="nofollow" target="_blank" href="https://twitter.com/whpalcom">Twitter</a>?</p>
+
+    <em class="warning"><i class="fa fa-warning"></i> It should be noticed that we are not liable to any loss due to the inaccuracy of the information(if any) in the website.</em>
+  </div>
+</div>
+
+<div class="col-xs-6 misc ng-scope">
+  <div class="col-header"><i class="fa fa-info-circle"></i> FAQ</div>
+  <div class="col-content">
+    <h2>1) How to get my services listed?</h2>
+    <p>It is sorry that your services are not listed here. You may send us your information via email to us and we will process it within 3-4 days. In the future, we are planning to provide a form for this purpose.
+    </p>
+    <h2>2) I found some incorrect information, what should I do?</h2>
+    <p>We sincerely apologize for the incorrect information if any. Please contact us via email with the correct information. We will get it fixed as early as possible.
+    </p>
+  </div>
+</div></div>
+  </div>
+  <div ng-class="{loading:loading,finish:finish}" class="loading_bar finish">
+    <div class="spinner">
+      <div class="rect1"></div>
+      <div class="rect2"></div>
+      <div class="rect3"></div>
+      <div class="rect4"></div>
+      <div class="rect5"></div>
+    </div>
+  </div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6870203-13', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

@@ -18,7 +18,8 @@ h1, h2, h3, h4, h5 {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255,255,255, .8);
+  background: rgba(0, 58, 69, 0.64);
+  z-index: 9999;
 }
 .spinner {
   width: 65px;
@@ -32,7 +33,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .spinner > div {
-  background-color: #666;
+  background-color: #fff;
   height: 100%;
   width: 6px;
   display: inline-block;
@@ -104,6 +105,7 @@ ul{
   color: #fff;
   padding: 1rem 2.5rem;
   overflow: auto;
+  height: 82px;
 }
 .logo-menu{
   display: none;
@@ -126,29 +128,33 @@ ul{
   height: 100%;
 }
 .left-menu > ul > li{
-  padding: 1.5rem 23px;
   clear: both;
   overflow: hidden;
+  height: 80px;
 }
 .left-menu > ul > li:hover, .left-menu .currentTab{
   background: #42586B;
 }
-.left-menu > ul > li > .icon{
-  float: left;
-  width: 100px;
+.left-menu > ul > li > a > .icon{
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  width: 56px;
+  height: 56px;
 }
-.left-menu > ul > li > .icon > .fa{
+.left-menu > ul > li > a > .icon > .fa{
   background: #384D81;
   padding: 1.5rem;
   border-radius: 50%;
 }
 .left-menu > ul > li > a{
   position: relative;
-  top: 6px;
-  float: right;
+  display: block;
+  height: 100%;
+  padding: 1.5rem 20px;
   font-weight: bold;
   text-align: right;
-  color: #fff;
+  color: #FFF;
   text-decoration: none;
 }
 
@@ -210,6 +216,24 @@ ul{
   display: block;
   z-index: 9999;
   pointer-events: none;
+}
+.st-sort-ascent::before,
+.st-sort-descent::before{
+  font-family: FontAwesome;
+  color: #efefef;
+  position: absolute;
+  top: 18px;
+  right: 10px;
+  display: block;
+  z-index: 9999;
+  pointer-events: none;
+}
+.st-sort-ascent::before{
+  content: "\f077";
+}
+
+.st-sort-descent::before{
+  content: "\f078";
 }
 .filter-first select{
   margin-bottom: 0;
@@ -280,6 +304,7 @@ ul{
   background: #57A682;
 }
 .filter-table table > thead > tr > th{
+  position: relative;
   text-transform: uppercase;
   font-weight: 700;
   color: #efefef;
@@ -292,7 +317,7 @@ ul{
   border-bottom: 1px solid #ccc;
 }
 .filter-table table > tbody > tr:hover{
-  background: #eee;
+  background: #E8E8E8;
 }
 .filter-table table > tbody > tr > td{
   padding: 1.5rem;
@@ -338,16 +363,35 @@ a.signup-btn{
 }
 
 .similar-plan-table tr:hover{
-  background: #eee;
+  background: #E8E8E8;
 }
 
 .similar-plan-table thead tr{
   background: #F5F5F5;
 }
-@media screen and (max-width: 1600px) {
-  .filter-panel>div.filter-first {
-    height: 120px;
-  }
+.col-header{
+font-family: 'Montserrat', sans-serif;
+  font-size: 1.6rem;
+  padding: 1.5rem 2.5rem;
+  background: #57A682;
+  color: #FFF;
+}
+.col-content{
+  background: #fff;
+  font-size: 1rem;
+  line-height: 1.5em;
+  padding: 1.5rem 2.5rem;
+}
+.col-content > h2{
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+}
+em.warning{
+  font-size: 0.8rem;
+}
+.misc{
+  margin-top: 15px;
 }
 
 @media screen and (max-width: 1600px) {
@@ -374,10 +418,15 @@ a.signup-btn{
   .left-menu-hover .logo-text{
     display: block;
   }
-  .left-menu > ul > li > a{
+  .left-menu > ul > li > a .desp,
+  .left-menu > ul > li > a .tab-name{
     display: none;
   }
-  .left-menu-hover > ul > li > a{
+  .filter-panel>div.filter-first {
+    height: 120px;
+  }
+  .left-menu-hover > ul > li > a .desp,
+  .left-menu-hover > ul > li > a .tab-name{
     display: block;
   }
   .main{

@@ -64,7 +64,9 @@
           <td data-title="Port Speed">{{row.portSpeed | portSpeedFilter}}</td>
           <td data-title="IP"><span ng-bind-html="row.ipv4 | ipv4Filter"></span><div ng-bind-html="row.ipv4Charge | ipChargeFilter"></div><span ng-bind-html="row.ipv6 | ipv6Filter"></span><div ng-bind-html="row.ipv6Charge | ipChargeFilter"></div></td>
           <td data-title="Location">{{row.location | locationFilter}} <span tooltip-placement="left"tooltip-animation="false" tooltip-html-unsafe="{{row.location | locationDetailFilter}}"><i class="fa fa-globe"></i></span></td>
-          <td data-title="Price">${{row.monthPrice}} / month<div><a rel="nofollow" class="signup-btn btn" href="{{row.link}}" target="_blank">SIGN UP</a></td>
+          <td data-title="Price">
+          <div ng-show="row.hourPrice">${{row.hourPrice}} / hour</div>
+          ${{row.monthPrice}} / month<div><a rel="nofollow" class="signup-btn btn" href="{{row.link}}" target="_blank">SIGN UP</a></td>
         </tr>
       </tbody>
       <tfoot>
