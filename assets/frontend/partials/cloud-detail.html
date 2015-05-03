@@ -63,7 +63,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="row in plans">
-                    <td data-title="Plan"><a href="/#!/cloud/{{row.slug}}">{{row.provider.name}} - {{row.name}}</a></td>
+                    <td data-title="Plan"><a class="scrollTop" href="/#!/cloud/{{row.slug}}">{{row.provider.name}} - {{row.name}}</a></td>
                     <td data-title="CPU">{{row.cpu | cpuFilter}}</td>
                     <td data-title="RAM">{{row.ram}} GB</td>
                     <td data-title="Harddsk">{{row.hdspace}} GB {{row.hdtype}}</td>

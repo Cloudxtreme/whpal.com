@@ -591,6 +591,7 @@ app.filter('locationDetailFilter',
   });
 app.controller('mainController', ['$rootScope', '$scope', '$http',
   function($rootScope, $scope, $http) {
+    var body = $("html, body");
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
       $scope.loading = true;
       $scope.finish = false;
@@ -621,6 +622,8 @@ app.controller('mainController', ['$rootScope', '$scope', '$http',
       $('.left-menu').removeClass('left-menu-hover');
       event.stopPropagation();
     });
-
+    $("body").on("click", ".scrollTop", function(event) {
+      body.scrollTop(0);
+    });
   }
 ]);

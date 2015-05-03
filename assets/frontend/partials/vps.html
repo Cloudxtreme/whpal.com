@@ -68,7 +68,7 @@
         <!-- <tr ng-repeat="row in vps | matchFilter:criteria"> -->
         <tr ng-repeat="row in vps">
           <td data-title="Provider">{{row.provider.name}}</td>
-          <td data-title="Plan"><a href="/#!/vps/{{row.slug}}">{{row.name}}</a> <span ng-show="row.remark" tooltip-placement="left"tooltip-animation="false" tooltip-html-unsafe="{{row.remark | locationDetailFilter}}"><i class="fa fa-info-circle"></i></span></td>
+          <td data-title="Plan"><a class="scrollTop" href="/#!/vps/{{row.slug}}">{{row.name}}</a> <span ng-show="row.remark" tooltip-placement="left"tooltip-animation="false" tooltip-html-unsafe="{{row.remark | locationDetailFilter}}"><i class="fa fa-info-circle"></i></span></td>
           <td data-title="CPU">{{row.cpu | cpuFilter}}</td>
           <td data-title="RAM">{{row.ram}} GB</td>
           <td data-title="Harddsk">{{row.hdspace}} GB {{row.hdtype}}</td>
