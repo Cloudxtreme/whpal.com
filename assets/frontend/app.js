@@ -38,11 +38,11 @@ var app = angular.module('backendApp', [
         controller: ['$rootScope', '$scope', '$stateParams', 'vps', 'VPS', 'plans',
           function($rootScope, $scope, $stateParams, vps, VPS, plans) {
             $scope.vps = vps.data;
-            $rootScope.title = $scope.vps.provider.name + " - " + $scope.vps.name;
+            $rootScope.title = $scope.vps.provider.name + " - " + $scope.vps.name + ' ' + $scope.vps.ram + 'GB RAM VPS';
             if ($scope.vps.location !== '') {
-              $rootScope.description = $scope.vps.provider.name + ' ' + $scope.vps.ram + 'GB VPS ' + $scope.vps.hdspace + ' GB ' + $scope.vps.hdtype + ' in ' + $scope.vps.location.split('|')[0] + ' for $' + $scope.vps.price + '/month';
+              $rootScope.description = $scope.vps.provider.name + ' ' + $scope.vps.ram + 'GB RAM VPS ' + $scope.vps.hdspace + ' GB ' + $scope.vps.hdtype + ' in ' + $scope.vps.location.split('|')[0] + ' for $' + $scope.vps.price + '/month';
             } else {
-              $rootScope.description = $scope.vps.provider.name + ' ' + $scope.vps.ram + 'GB VPS ' + $scope.vps.hdspace + ' GB ' + $scope.vps.hdtype + ' for $' + $scope.vps.price + '/month';
+              $rootScope.description = $scope.vps.provider.name + ' ' + $scope.vps.ram + 'GB RAM VPS ' + $scope.vps.hdspace + ' GB ' + $scope.vps.hdtype + ' for $' + $scope.vps.price + '/month';
             }
             $rootScope.keywords = 'VPS, hosting, web hosting, CDN';
             $rootScope.currentAction = $scope.vps.provider.name + " - " + $scope.vps.name;
@@ -271,7 +271,7 @@ var app = angular.module('backendApp', [
         controller: ['$rootScope', '$scope', '$stateParams', 'cloud', 'Cloud', 'plans',
           function($rootScope, $scope, $stateParams, cloud, VPS, plans) {
             $scope.cloud = cloud.data;
-            $rootScope.title = $scope.cloud.provider.name + " - " + $scope.cloud.name;
+            $rootScope.title = $scope.cloud.provider.name + " - " + $scope.cloud.name + ' ' + $scope.cloud.ram + 'GB RAM Cloud';
             if ($scope.cloud.location !== '') {
               $rootScope.description = $scope.cloud.provider.name + ' ' + $scope.cloud.ram + 'GB Cloud ' + $scope.cloud.hdspace + ' GB ' + $scope.cloud.hdtype + ' in ' + $scope.cloud.location.split('|')[0] + ' for $' + $scope.cloud.monthPrice + '/month';
             } else {
@@ -597,6 +597,7 @@ app.controller('mainController', ['$rootScope', '$scope', '$http',
       $scope.finish = false;
     });
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+      $scope.currentTab = toState.name;
       $scope.loading = false;
       $scope.finish = true;
     });

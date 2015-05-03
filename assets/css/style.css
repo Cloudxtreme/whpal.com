@@ -130,7 +130,7 @@ ul{
   clear: both;
   overflow: hidden;
 }
-.left-menu > ul > li:hover{
+.left-menu > ul > li:hover, .left-menu .currentTab{
   background: #42586B;
 }
 .left-menu > ul > li > .icon{
