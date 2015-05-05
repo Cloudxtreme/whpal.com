@@ -193,6 +193,7 @@ module.exports = {
             res.send(cloud);
             Cache.del('cloudIndex');
             Cache.del('cloudTotal');
+            Cache.del('allPlans');
           }
         });
     }
@@ -300,6 +301,7 @@ module.exports = {
             Cache.del('cloud' + id);
             Cache.del('cloudPlan' + id);
             Cache.del('cloudTotal');
+            Cache.del('allPlans');
           }
         });
     }
@@ -333,6 +335,7 @@ module.exports = {
       });
 
     function renderPage(cloud) {
+      exec('casperjs ./render.js index index.html', function(err, stdout, stderr) {});
       dirtyWork(cloud, 0, cloud.length);
     }
 

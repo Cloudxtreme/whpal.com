@@ -174,6 +174,7 @@ module.exports = {
             res.send(vps);
             Cache.del('vpsIndex');
             Cache.del('vpsTotal');
+            Cache.del('allPlans');
           }
         });
     }
@@ -263,6 +264,7 @@ module.exports = {
             Cache.del('vps' + id);
             Cache.del('vpsPlan' + id);
             Cache.del('vpsTotal');
+            Cache.del('allPlans');
           }
         });
     }
@@ -316,6 +318,7 @@ module.exports = {
       });
 
     function renderPage(vps) {
+      exec('casperjs ./render.js index index.html', function(err, stdout, stderr) {});
       dirtyWork(vps, 0, vps.length);
     }
 

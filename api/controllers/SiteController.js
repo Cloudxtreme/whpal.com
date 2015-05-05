@@ -3,7 +3,60 @@ function pad(n, width, z) {
   n = n + '';
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
+
+function clear(text) {
+  if (text.indexOf('Unmetered') > -1) {
+    return null;
+  } else {
+    return text;
+  }
+}
 module.exports = {
+  // fix: function(req, res) {
+  //   Vps
+  //     .query("SELECT * FROM vps WHERE vps_remark LIKE  '%Unmetered%'", function(err, entries) {
+  //       for (i = 0; i < entries.length; i++) {
+  //         var remark = entries[i].vps_remark.split('|').map(clear).filter(function(val) {
+  //           return val !== null;
+  //         }).join("|");
+  //         Vps
+  //           .query('UPDATE vps set vps_remark="' + remark + '" where id=' + entries[i].id, function(err, entry) {
+  //             if(err){console.log(err);}
+  //           });
+  //       }
+  //     });
+  //   res.send('ok');
+  // },
+  plans: function(req, res) {
+    var allPlanCache = Cache.get('allPlans');
+    var result = {};
+    if (allPlanCache) {
+      res.json(allPlanCache);
+    } else {
+      Vps
+        .find()
+        .populate('provider')
+        .limit(10)
+        .sort({
+          updatedAt: 'desc'
+        })
+        .exec(function(err, vps) {
+          result.vps = vps;
+          Cloud
+            .find()
+            .populate('provider')
+            .limit(10)
+            .sort({
+              updatedAt: 'desc'
+            })
+            .exec(function(err, cloud) {
+              result.cloud = cloud;
+              res.json(result);
+              Cache.set('allPlans', result);
+            })
+        })
+    }
+  },
   sitemap: function(req, res) {
     var sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
     lastmod = new Date();

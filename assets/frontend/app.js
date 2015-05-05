@@ -26,7 +26,27 @@ var app = angular.module('backendApp', [
     function($stateProvider, $urlRouterProvider, $locationProvider, $analyticsProvider) {
       $analyticsProvider.virtualPageviews(false);
       $locationProvider.hashPrefix('!');
-      $urlRouterProvider.otherwise('/vps-listing')
+      $urlRouterProvider.otherwise('/index');
+      $stateProvider.state("backend_home", {
+        resolve: {
+          plans: ['$http', function($http) {
+            return $http.get('/site/plans');
+          }]
+        },
+        templateUrl: "/frontend/partials/home.html",
+        url: "/index",
+        controller: ['$rootScope', '$scope', '$stateParams', 'plans', '$analytics',
+          function($rootScope, $scope, $stateParams, plans, $analytics) {
+            $rootScope.title = 'WHPal: Web Hosting Listing';
+            $rootScope.description = 'WHPal provides a comprehensive list of web hosting service. You may even sort, filter and compare different plans.';
+            $rootScope.keywords = 'VPS, hosting, web hosting, CDN';
+            $rootScope.currentAction = "Web Hosting Pal";
+            $scope.vpsPlans = plans.data.vps;
+            $scope.cloudPlans = plans.data.cloud;
+            $analytics.pageTrack('/index');
+          }
+        ]
+      });
       $stateProvider.state("backend_vps_detail", {
         resolve: {
           vps: ['VPS', '$stateParams', function(VPS, $stateParams) {
@@ -41,11 +61,15 @@ var app = angular.module('backendApp', [
         controller: ['$rootScope', '$scope', '$stateParams', 'vps', 'VPS', 'plans', '$analytics',
           function($rootScope, $scope, $stateParams, vps, VPS, plans, $analytics) {
             $scope.vps = vps.data;
-            $rootScope.title = $scope.vps.provider.name + " - " + $scope.vps.name + ' ' + $scope.vps.ram + 'GB RAM VPS | WHPal';
+            $scope.platform = '';
+            if ($scope.vps.virtualization !== 'Unknown') {
+              $scope.platform = " " + $scope.vps.virtualization + " ";
+            }
+            $rootScope.title = $scope.vps.provider.name + " - " + $scope.vps.name + ' ' + $scope.vps.ram + 'GB RAM ' + $scope.platform + 'VPS | WHPal';
             if ($scope.vps.location !== '') {
-              $rootScope.description = $scope.vps.provider.name + ' ' + $scope.vps.ram + 'GB RAM VPS ' + $scope.vps.hdspace + ' GB ' + $scope.vps.hdtype + ' in ' + $scope.vps.location.split('|')[0] + ' for $' + $scope.vps.price + '/month';
+              $rootScope.description = $scope.vps.provider.name + ' ' + $scope.vps.ram + 'GB RAM ' + $scope.platform + 'VPS ' + $scope.vps.hdspace + ' GB ' + $scope.vps.hdtype + ' in ' + $scope.vps.location.split('|')[0] + ' for $' + $scope.vps.price + '/month';
             } else {
-              $rootScope.description = $scope.vps.provider.name + ' ' + $scope.vps.ram + 'GB RAM VPS ' + $scope.vps.hdspace + ' GB ' + $scope.vps.hdtype + ' for $' + $scope.vps.price + '/month';
+              $rootScope.description = $scope.vps.provider.name + ' ' + $scope.vps.ram + 'GB RAM ' + $scope.platform + 'VPS ' + $scope.vps.hdspace + ' GB ' + $scope.vps.hdtype + ' for $' + $scope.vps.price + '/month';
             }
             $rootScope.keywords = 'VPS, hosting, web hosting, CDN';
             $rootScope.currentAction = $scope.vps.provider.name + " - " + $scope.vps.name;
@@ -72,36 +96,21 @@ var app = angular.module('backendApp', [
             function vpsFilter(rows, criteria) {
               var filtered = [];
               angular.forEach(rows, function(row) {
-                if (row.price < criteria.minprice || row.price > criteria.maxprice) {
+                if (row.price < criteria.minprice || (row.price > criteria.maxprice && criteria.maxprice < 100)) {
                   return;
                 }
                 if (row.cpu < criteria.mincpu || row.cpu > criteria.maxcpu) {
                   return;
                 }
-                if (row.ram < criteria.minram || row.ram > criteria.maxram) {
+                if (row.ram < criteria.minram || (row.ram > criteria.maxram && criteria.maxram < 16)) {
                   return;
                 }
                 if (row.hdspace < criteria.minhd || row.hdspace > criteria.maxhd) {
                   return;
                 }
-                if (row.bandwidth < criteria.minbandwidth || row.bandwidth > criteria.maxbandwidth) {
+                if (row.bandwidth < criteria.minbandwidth || (row.bandwidth > criteria.maxbandwidth && criteria.maxbandwidth < 10000)) {
                   return;
                 }
-                // if (criteria.boolhdd || criteria.boolssd || criteria.boolhybrid) {
-                //   var bfiltered = false;
-                //   if (criteria.boolhdd && row.hdtype === 'HDD') {
-                //     bfiltered = true;
-                //   }
-                //   if (criteria.boolssd && row.hdtype === 'SSD') {
-                //     bfiltered = true;
-                //   }
-                //   if (criteria.boolhybrid && row.hdtype === 'Hybrid') {
-                //     bfiltered = true;
-                //   }
-                //   if (bfiltered === false) {
-                //     return;
-                //   }
-                // }
                 if (criteria.hdtype !== 'All') {
                   if (criteria.hdtype !== row.hdtype) {
                     return;
@@ -112,25 +121,6 @@ var app = angular.module('backendApp', [
                     return;
                   }
                 }
-                // if (criteria.boolovz || criteria.boolxen || criteria.boolkvm || criteria.boolwin) {
-                //   var bfiltered = false;
-                //   if (criteria.boolovz && row.virtualization === 'OpenVZ') {
-                //     bfiltered = true;
-                //   }
-                //   if (criteria.boolxen && row.virtualization === 'XEN') {
-                //     bfiltered = true;
-                //   }
-                //   if (criteria.boolkvm && row.virtualization === 'KVM') {
-                //     bfiltered = true;
-                //   }
-                //   if (criteria.boolwin && row.virtualization === 'Windows') {
-                //     bfiltered = true;
-                //   }
-                //   console.log(bfiltered);
-                //   if (bfiltered === false) {
-                //     return;
-                //   }
-                // }
                 if (criteria.location !== '' && row.location.toLowerCase().indexOf(criteria.location.toLowerCase()) <= -1) {
                   return;
                 }
@@ -141,14 +131,7 @@ var app = angular.module('backendApp', [
             $rootScope.currentAction = "VPS Hosting";
             $scope.criteria = {
               minram: 0,
-              maxram: 64,
-              boolovz: false,
-              boolxen: false,
-              boolwin: false,
-              boolkvm: false,
-              boolhdd: false,
-              boolssd: false,
-              boolhybrid: false,
+              maxram: 16,
               hdtype: 'All',
               platform: 'All',
               minbandwidth: 0,
@@ -158,8 +141,10 @@ var app = angular.module('backendApp', [
               mincpu: 0,
               maxcpu: 16,
               minprice: 0,
-              maxprice: 1000,
+              maxprice: 100,
               location: '',
+              _maxram: '16+',
+              _maxprice: '100+'
             }
             angular.copy(vps.data, $scope.vps);
             $scope.displayedVPS = [].concat($scope.vps);
@@ -167,29 +152,8 @@ var app = angular.module('backendApp', [
               $scope.vps = vpsFilter(vps.data, $scope.criteria);
               $scope.displayedVPS = [].concat($scope.vps);
             }, true);
-            $scope.toggleHDD = function() {
-              $scope.criteria.boolhdd = !$scope.criteria.boolhdd;
-            }
-            $scope.toggleSSD = function() {
-              $scope.criteria.boolssd = !$scope.criteria.boolssd;
-            }
-            $scope.toggleHybrid = function() {
-              $scope.criteria.boolhybrid = !$scope.criteria.boolhybrid;
-            }
-            $scope.toggleOVZ = function() {
-              $scope.criteria.boolovz = !$scope.criteria.boolovz;
-            }
-            $scope.toggleXEN = function() {
-              $scope.criteria.boolxen = !$scope.criteria.boolxen;
-            }
-            $scope.toggleKVM = function() {
-              $scope.criteria.boolkvm = !$scope.criteria.boolkvm;
-            }
-            $scope.toggleWindows = function() {
-              $scope.criteria.boolwin = !$scope.criteria.boolwin;
-            }
             $scope.compareItems = [];
-            $scope.compareTableWidth = 350;
+            $scope.compareTableWidth = 700;
             $scope.compareTable = false;
             $scope.compare = function(id) {
               for (i = 0; i < $scope.vps.length; i++) {
@@ -207,6 +171,8 @@ var app = angular.module('backendApp', [
               }
               $scope.compareItems.push($theVPS);
               $scope.compareTableWidth = 350 * $scope.compareItems.length;
+              if ($scope.compareTableWidth === 350)
+                $scope.compareTableWidth = 700;
               $scope.compareTable = true;
               console.log($scope.compareItems);
             }
@@ -260,7 +226,10 @@ var app = angular.module('backendApp', [
             });
             $('.ramslider').on('change', function() {
               $scope.criteria.minram = parseFloat($(this).val()[0]).toFixed(1);
-              $scope.criteria.maxram = parseFloat($(this).val()[1]).toFixed(1);
+              $scope.criteria.maxram = $scope.criteria._maxram = parseFloat($(this).val()[1]).toFixed(1);
+              if ($scope.criteria._maxram >= 16) {
+                $scope.criteria._maxram = '16+';
+              }
               $scope.$apply();
             });
             $('.priceslider').noUiSlider({
@@ -274,7 +243,10 @@ var app = angular.module('backendApp', [
             });
             $('.priceslider').on('change', function() {
               $scope.criteria.minprice = parseInt($(this).val()[0], 10);
-              $scope.criteria.maxprice = parseInt($(this).val()[1], 10);
+              $scope.criteria.maxprice = $scope.criteria._maxprice = parseInt($(this).val()[1], 10);
+              if ($scope.criteria._maxprice >= 100) {
+                $scope.criteria._maxprice = '100+';
+              }
               $scope.$apply();
             });
 
@@ -297,17 +269,17 @@ var app = angular.module('backendApp', [
       });
       $stateProvider.state("backend_cloud_detail", {
         resolve: {
-          cloud: ['Cloud', '$stateParams', function(VPS, $stateParams) {
-            return VPS.get($stateParams.id.match(/\d+/)[0]);
+          cloud: ['Cloud', '$stateParams', function(Cloud, $stateParams) {
+            return Cloud.get($stateParams.id.match(/\d+/)[0]);
           }],
-          plans: ['Cloud', '$stateParams', function(VPS, $stateParams) {
-            return VPS.similar($stateParams.id.match(/\d+/)[0]);
+          plans: ['Cloud', '$stateParams', function(Cloud, $stateParams) {
+            return Cloud.similar($stateParams.id.match(/\d+/)[0]);
           }]
         },
         templateUrl: "/frontend/partials/cloud-detail.html",
         url: "/cloud/{id}",
         controller: ['$rootScope', '$scope', '$stateParams', 'cloud', 'Cloud', 'plans', '$analytics',
-          function($rootScope, $scope, $stateParams, cloud, VPS, plans, $analytics) {
+          function($rootScope, $scope, $stateParams, cloud, Cloud, plans, $analytics) {
             $scope.cloud = cloud.data;
             $rootScope.title = $scope.cloud.provider.name + " - " + $scope.cloud.name + ' ' + $scope.cloud.ram + 'GB RAM Cloud | WHPal';
             if ($scope.cloud.location !== '') {
@@ -340,19 +312,19 @@ var app = angular.module('backendApp', [
             function cloudFilter(rows, criteria) {
               var filtered = [];
               angular.forEach(rows, function(row) {
-                if (row.monthPrice < criteria.minprice || row.monthPrice > criteria.maxprice) {
+                if (row.monthPrice < criteria.minprice || (row.monthPrice > criteria.maxprice && criteria.maxprice < 100)) {
                   return;
                 }
                 if (row.cpu < criteria.mincpu || row.cpu > criteria.maxcpu) {
                   return;
                 }
-                if (row.ram < criteria.minram || row.ram > criteria.maxram) {
+                if (row.ram < criteria.minram || (row.ram > criteria.maxram && criteria.maxram < 16)) {
                   return;
                 }
                 if (row.hdspace < criteria.minhd || row.hdspace > criteria.maxhd) {
                   return;
                 }
-                if (row.bandwidth < criteria.minbandwidth || row.bandwidth > criteria.maxbandwidth) {
+                if (row.bandwidth < criteria.minbandwidth || (row.bandwidth > criteria.maxbandwidth && criteria.maxbandwidth < 10000)) {
                   return;
                 }
                 if (criteria.hdtype !== 'All') {
@@ -370,7 +342,7 @@ var app = angular.module('backendApp', [
             $rootScope.currentAction = "Cloud Hosting";
             $scope.criteria = {
               minram: 0,
-              maxram: 64,
+              maxram: 16,
               hdtype: 'All',
               minbandwidth: 0,
               maxbandwidth: 10000,
@@ -379,8 +351,10 @@ var app = angular.module('backendApp', [
               mincpu: 0,
               maxcpu: 24,
               minprice: 0,
-              maxprice: 1000,
+              maxprice: 100,
               location: '',
+              _maxram: '16+',
+              _maxprice: '100+',
             }
             angular.copy(cloud.data, $scope.cloud);
             $scope.displayedCloud = [].concat($scope.cloud);
@@ -389,7 +363,7 @@ var app = angular.module('backendApp', [
               $scope.displayedCloud = [].concat($scope.cloud);
             }, true);
             $('.cpuslider').noUiSlider({
-              start: [$scope.criteria.minram, $scope.criteria.maxram],
+              start: [$scope.criteria.minram, $scope.criteria.maxcpu],
               step: 1,
               connect: true,
               range: {
@@ -427,7 +401,10 @@ var app = angular.module('backendApp', [
             });
             $('.ramslider').on('change', function() {
               $scope.criteria.minram = parseFloat($(this).val()[0]).toFixed(1);
-              $scope.criteria.maxram = parseFloat($(this).val()[1]).toFixed(1);
+              $scope.criteria.maxram = $scope.criteria._maxram = parseFloat($(this).val()[1]).toFixed(1);
+              if ($scope.criteria._maxram >= 16) {
+                $scope.criteria._maxram = '16+';
+              }
               $scope.$apply();
             });
             $('.priceslider').noUiSlider({
@@ -441,7 +418,10 @@ var app = angular.module('backendApp', [
             });
             $('.priceslider').on('change', function() {
               $scope.criteria.minprice = parseInt($(this).val()[0], 10);
-              $scope.criteria.maxprice = parseInt($(this).val()[1], 10);
+              $scope.criteria.maxprice = $scope.criteria._maxprice = parseInt($(this).val()[1], 10);
+              if ($scope.criteria._maxprice >= 100) {
+                $scope.criteria._maxprice = '100+';
+              }
               $scope.$apply();
             });
 
@@ -574,11 +554,12 @@ app.filter('ipv4Filter',
 app.filter('bwFilter',
   function() {
     return function(input, scope) {
-      if (input >= 10000) {
-        return '10000+ GB';
-      } else if (input === 0) {
+      if (input === 0) {
         return 'No traffic included';
       } else {
+        if (input === 1000000) {
+          return 'Unmetered';
+        }
         return input + ' GB';
       }
     }

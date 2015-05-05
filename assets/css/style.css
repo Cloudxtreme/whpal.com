@@ -435,28 +435,25 @@ em.warning{
   margin-left: 240px;
   z-index: 65535;
 }
-.comparison-table-plan{
-  float: left;
+.comparison-table-plan,
+.add-more-col{
   width: 350px;
+  display: table-cell;
+  vertical-align: top;
+  border-right: 2px solid #aaa;
 }
 .comparison-table-outer-container{
   overflow-x:auto;
 }
 .comparison-table-inner-container{
-  width: 2800px;
+  display: table;
+  background: #FFF;
+  border-radius: 5px;
+  overflow: hidden;
 }
-.comparison-table-plan:first-child .comparison-table-plan-header{
-  border-radius: 3px 0 0 0;
-}
-.comparison-table-plan:first-child .comparison-table-plan_detail{
-  border-radius: 0 0 0 3px;
-}
-.comparison-table-plan:last-child .comparison-table-plan-header{
-  border-radius: 0 3px 0 0;
+.last-compare,
+.add-more-col{
   border-right: 0;
-}
-.comparison-table-plan:last-child .comparison-table-plan_detail{
-  border-radius: 0 0 3px 0;
 }
 .comparison-table-plan-header{
   position: relative;
@@ -465,7 +462,7 @@ em.warning{
   text-align: center;
   padding: 2.5rem;
   height: 180px;
-  border-right: 2px solid #4A4F69;
+  /*border-right: 2px solid #4A4F69;*/
 }
 .plan-name{
   font-family: 'Montserrat', sans-serif;
@@ -483,6 +480,10 @@ em.warning{
   font-size: 1.5rem;
   color: #bbb;
 }
+.plan-add-more{
+  font-size: 6rem;
+  color: #fff;
+}
 .compareTable-remove{
   position: absolute;
   top: 10px;
@@ -491,23 +492,22 @@ em.warning{
   font-size: 1.5rem;
   cursor: pointer;
 }
-.comparison-table-plan:first-child .comparison-table-plan_detail{
-  border-left: 2px solid #ccc;
-
-}
-.comparison-table-plan_detail{
+.comparison-table-plan-detail{
   text-align: center;
-  border-right: 2px solid #ccc;
-  border-bottom: 2px solid #ccc;
+  /*border-right: 2px solid #ccc;*/
   max-height: 460px;
   overflow: auto;
 }
-.comparison-table-plan_detail > div{
+.last-compare .comparison-table-plan-detail,
+.add-more-col .comparison-table-plan-detail{
+  border-right: 0;
+}
+.comparison-table-plan-detail > div{
   border-bottom: 1px solid #ccc;
   padding: 1rem;
   background: #fff;
 }
-.comparison-table-plan_detail > div:last-child{
+.comparison-table-plan-detail > div:last-child{
   border-bottom: 0
 }
 .close-overlay{

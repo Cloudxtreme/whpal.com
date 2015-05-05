@@ -27,7 +27,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/6.2.0/jquery.nouislider.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="/css/style.css?v=20150505">
+  <link rel="stylesheet" href="/css/style.css?v=20150505b">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/6.2.0/jquery.nouislider.min.js"></script>
   <!--AngularJS-->
@@ -39,7 +39,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-smart-table/2.0.2/smart-table.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angulartics/0.17.2/angulartics.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angulartics/0.17.2/angulartics-ga.min.js"></script>
-  <script src="/frontend/app.js?v=20150505)"></script>
+  <script src="/frontend/app.js?v=20150505b"></script>
 </head>
 <body ng-controller="mainController">
   <div class="left-menu">
@@ -52,6 +52,13 @@
         <div class="icon"><i class="fa fa-desktop"></i></div>
         <a href="#/webhosting"><div>Web Hosting</div><div class="desp">194 Hostings</div></a>
       </li> -->
+      <li ng-class="{currentTab: currentTab.indexOf('backend_home') > -1}">
+        <a href="/#!/index">
+          <div class="icon"><i class="fa fa-home"></i></div>
+          <div class="tab-name">Home</div>
+          <div class="desp">Latest updates</div>
+        </a>
+      </li>
       <li ng-class="{currentTab: currentTab.indexOf('backend_vps') > -1}">
         <a href="/#!/vps-listing">
           <div class="icon"><i class="fa fa-server"></i></div>
@@ -97,8 +104,6 @@
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
   ga('create', 'UA-6870203-13', 'auto');
-
 </script>
 </html>

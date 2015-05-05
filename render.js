@@ -1,18 +1,4 @@
-var casper = require('casper').create({
-    clientScripts: [
-        'assets/bower_components/jquery/dist/jquery.min.js', // These two scripts will be injected in remote
-        'assets/bower_components/noUiSlider/jquery.nouislider.all.min.js',
-        'assets/bower_components/angular/angular.min.js',
-        'assets/bower_components/sanitize/angular-sanitize.min.js',
-        'assets/bower_components/uirouter/angular-ui-router.min.js',
-        'assets/bower_components/angular-ui/ui-bootstrap-tpls.min.js',
-        'assets/bower_components/angular-smart-table/dist/smart-table.min.js',
-        'assets/frontend/app.js'
-    ],
-    pageSettings: {
-        loadPlugins: false // use these settings
-    },
-});
+var casper = require('casper').create();
 var part = casper.cli.get(0);
 var url = 'http://localhost:1337/#!/' + part;
 var myfile = './assets/static/' + casper.cli.get(1);

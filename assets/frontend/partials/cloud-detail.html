@@ -23,7 +23,7 @@
         </tr>
         <tr>
             <th>Traffic</th>
-            <td data-title="Bandwidth"><div ng-bind-html="cloud.bandwidth | bwFilter"></div><div ng-bind-html="cloud.bandwidthCharge | bwChargeFilter"></div></td>
+            <td data-title="Traffic"><div ng-bind-html="cloud.bandwidth | bwFilter"></div><div ng-bind-html="cloud.bandwidthCharge | bwChargeFilter"></div></td>
         </tr>
         <tr>
             <th>Network</th>
@@ -57,7 +57,7 @@
                     <th>CPU</th>
                     <th>RAM</th>
                     <th>Harddisk</th>
-                    <th>Network</th>
+                    <th>Traffic</th>
                     <th>Price</th>
                 </tr>
             </thead>
@@ -66,8 +66,8 @@
                     <td data-title="Plan"><a class="scrollTop" href="/#!/cloud/{{row.slug}}">{{row.provider.name}} - {{row.name}}</a></td>
                     <td data-title="CPU">{{row.cpu | cpuFilter}}</td>
                     <td data-title="RAM">{{row.ram}} GB</td>
-                    <td data-title="Harddsk">{{row.hdspace}} GB {{row.hdtype}}</td>
-                    <td data-title="Bandwidth">{{row.bandwidth | bwFilter}}</td>
+                    <td data-title="Storage">{{row.hdspace}} GB {{row.hdtype}}</td>
+                    <td data-title="Traffic">{{row.bandwidth | bwFilter}}</td>
                     <td data-title="Price">${{row.monthPrice}} / month</td>
                 </tr>
             </tbody>

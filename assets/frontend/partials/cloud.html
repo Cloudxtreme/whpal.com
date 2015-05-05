@@ -5,7 +5,7 @@
   </ui-select>
 </div>
 <div class="col-xs-6 filter-first noborder">
-  <div class="filter-type">PRICE (${{criteria.minprice}} - ${{criteria.maxprice}})</div>
+  <div class="filter-type">PRICE (${{criteria.minprice}} - ${{criteria._maxprice}})</div>
   <div class="priceslider filtermargin2" id="green"></div>
 </div>
 <div class="clearfix noborder"></div>
@@ -14,7 +14,7 @@
   <div class="cpuslider filtermargin" id="green"></div>
 </div>
 <div class="col-xs-3 filter-second noborderres">
-  <div class="filter-type">RAM ({{criteria.minram}} GB - {{criteria.maxram}} GB)</div>
+  <div class="filter-type">RAM ({{criteria.minram}} GB - {{criteria._maxram}} GB)</div>
   <div class="ramslider filtermargin" id="green"></div>
 </div>
 <div class="col-xs-3 filter-second">
@@ -60,7 +60,7 @@
           <td data-title="CPU">{{row.cpu | cpuFilter}}<span ng-bind-html="row.cpuCharge | cpuChargeFilter"></td>
           <td data-title="RAM">{{row.ram | ramFilter}}<div ng-bind-html="row.ramCharge | ramChargeFilter"></div></td>
           <td data-title="Storage">{{row.hdspace}} GB {{row.hdtype}}<div ng-bind-html="row.hdCharge | hdChargeFilter"></div></td>
-          <td data-title="Bandwidth"><div ng-bind-html="row.bandwidth | bwFilter"></div><div ng-bind-html="row.bandwidthCharge | bwChargeFilter"></div></td>
+          <td data-title="Bandwidth"><div ng-bind-html="row.bandwidth | bwFilter: row.remark"></div><div ng-bind-html="row.bandwidthCharge | bwChargeFilter"></div></td>
           <td data-title="Port Speed">{{row.portSpeed | portSpeedFilter}}</td>
           <td data-title="IP"><span ng-bind-html="row.ipv4 | ipv4Filter"></span><div ng-bind-html="row.ipv4Charge | ipChargeFilter"></div><span ng-bind-html="row.ipv6 | ipv6Filter"></span><div ng-bind-html="row.ipv6Charge | ipChargeFilter"></div></td>
           <td data-title="Location">{{row.location | locationFilter}} <span tooltip-placement="left"tooltip-animation="false" tooltip-html-unsafe="{{row.location | locationDetailFilter}}"><i class="fa fa-globe"></i></span></td>

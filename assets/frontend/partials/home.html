@@ -1,0 +1,54 @@
+<div class="hosting-detail col-xs-6">
+    <div class="table-wrapper nopadding">
+        <table class="similar-plan-table">
+            <h2><i class="fa fa-server"></i> Latest VPS Hostings</h2>
+            <thead>
+                <tr>
+                    <th>Plan</th>
+                    <th>CPU</th>
+                    <th>RAM</th>
+                    <th>Harddisk</th>
+                    <th>Traffic</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in vpsPlans">
+                    <td data-title="Plan"><a class="scrollTop" href="/#!/vps/{{row.slug}}">{{row.provider.name}} - {{row.name}}</a></td>
+                    <td data-title="CPU">{{row.cpu | cpuFilter}}</td>
+                    <td data-title="RAM">{{row.ram}} GB</td>
+                    <td data-title="Harddsk">{{row.hdspace}} GB {{row.hdtype}}</td>
+                    <td data-title="Traffic">{{row.bandwidth | bwFilter}}</td>
+                    <td data-title="Price">${{row.price}} / month</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="hosting-detail col-xs-6">
+    <div class="table-wrapper nopadding">
+        <table class="similar-plan-table">
+            <h2><i class="fa fa-cloud"></i> Latest Cloud Hostings</h2>
+            <thead>
+                <tr>
+                    <th>Plan</th>
+                    <th>CPU</th>
+                    <th>RAM</th>
+                    <th>Harddisk</th>
+                    <th>Traffic</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in cloudPlans">
+                    <td data-title="Plan"><a class="scrollTop" href="/#!/cloud/{{row.slug}}">{{row.provider.name}} - {{row.name}}</a></td>
+                    <td data-title="CPU">{{row.cpu | cpuFilter}}</td>
+                    <td data-title="RAM">{{row.ram}} GB</td>
+                    <td data-title="Harddsk">{{row.hdspace}} GB {{row.hdtype}}</td>
+                    <td data-title="Traffic">{{row.bandwidth | bwFilter}}</td>
+                    <td data-title="Price">${{row.monthPrice}} / month</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
