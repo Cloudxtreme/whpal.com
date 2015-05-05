@@ -61,14 +61,14 @@
           <th st-sort="ipv4">IP</th>
           <th>PLATFORM</th>
           <th>LOCATION</th>
-          <th st-sort="price">Price</th>
+          <th st-sort-default="true" st-sort="price">Price</th>
         </tr>
       </thead>
       <tbody>
         <!-- <tr ng-repeat="row in vps | matchFilter:criteria"> -->
         <tr ng-repeat="row in vps">
           <td data-title="Provider">{{row.provider.name}}</td>
-          <td data-title="Plan"><a class="scrollTop" href="/#!/vps/{{row.slug}}">{{row.name}}</a> <span ng-show="row.remark" tooltip-placement="left"tooltip-animation="false" tooltip-html-unsafe="{{row.remark | locationDetailFilter}}"><i class="fa fa-info-circle"></i></span></td>
+          <td data-title="Plan"><a class="scrollTop" href="/#!/vps/{{row.slug}}">{{row.name}}</a> <span ng-show="row.remark" tooltip-placement="left" tooltip-animation="false" tooltip-html-unsafe="{{row.remark | locationDetailFilter}}"><i class="fa fa-info-circle"></i></span></td>
           <td data-title="CPU">{{row.cpu | cpuFilter}}</td>
           <td data-title="RAM">{{row.ram}} GB</td>
           <td data-title="Harddsk">{{row.hdspace}} GB {{row.hdtype}}</td>
@@ -77,7 +77,7 @@
           <td data-title="IP"><span ng-bind-html="row.ipv4 | ipv4Filter"></span><span ng-bind-html="row.ipv6 | ipv6Filter"></span></td>
           <td data-title="Platform">{{row.virtualization}}</td>
           <td data-title="Location">{{row.location | locationFilter}} <span tooltip-placement="left"tooltip-animation="false" tooltip-html-unsafe="{{row.location | locationDetailFilter}}"><i class="fa fa-globe"></i></span></td>
-          <td data-title="Price">${{row.price}} / month<div><a rel="nofollow" class="signup-btn btn" href="{{row.link}}" target="_blank">SIGN UP</a></td>
+          <td data-title="Price">${{row.price}} / month<div><a rel="nofollow" class="signup-btn btn" href="{{row.link}}" target="_blank">SIGN UP</a><a ng-click="compare(row.id)" tooltip-placement="left" tooltip-animation="false" tooltip-html-unsafe="Compare" class="btn signup-btn compare-btn"><i class="fa fa-plus"></i></a></td>
         </tr>
       </tbody>
       <tfoot>
@@ -88,5 +88,33 @@
         </tr>
       </tfoot>
     </table>
+  </div>
+</div>
+<div ng-show="compareTable" class="overlay-black">
+  <div ng-click="compareTable = false" class="close-overlay">
+    <i class="fa fa-close"></i>
+  </div>
+</div>
+<div ng-show="compareTable" class="comparison-table">
+  <div class="comparison-table-outer-container">
+    <div style="width:{{compareTableWidth}}px" class="comparison-table-inner-container">
+      <div ng-repeat="row in compareItems" class="comparison-table-plan">
+        <div class="comparison-table-plan-header">
+          <div class="plan-name">{{row.provider.name}} - <a class="scrollTop" href="/#!/vps/{{row.slug}}">{{row.name}}</a> <span ng-show="row.remark" tooltip-placement="left" tooltip-animation="false" tooltip-html-unsafe="{{row.remark | locationDetailFilter}}"><i class="fa fa-info-circle"></i></span></div>
+          <div class="plan-price">${{row.price}} <span class="plan-price-caption">/ month</span></div><a rel="nofollow" class="signup-btn btn" href="{{row.link}}" target="_blank">SIGN UP</a>
+          <div class="compareTable-remove" ng-click="removeCompare(row.id)"><i class="fa fa-close"></i></div>
+        </div>
+        <div class="comparison-table-plan_detail">
+          <div><strong>{{row.cpu | cpuFilter}}</strong> CPU</div>
+          <div><strong>{{row.ram}} GB</strong> RAM</div>
+          <div><strong>{{row.hdspace}} GB</strong> {{row.hdtype}}</div>
+          <div><strong>{{row.bandwidth | bwFilter}}</strong> Traffic</div>
+          <div><strong>{{row.portSpeed | portSpeedFilter}}</strong></div>
+          <div>{{row.virtualization}}</div>
+          <div>{{row.location | locationFilter}} <span tooltip-placement="left"tooltip-animation="false" tooltip-html-unsafe="{{row.location | locationDetailFilter}}"><i class="fa fa-globe"></i></div>
+          <div><span ng-bind-html="row.ipv4 | ipv4Filter"></span><span ng-bind-html="row.ipv6 | ipv6Filter"></span></div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

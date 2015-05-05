@@ -78,7 +78,8 @@ module.exports = {
                 '>=': vps[0].ram
               },
               price: {
-                '>=': vps[0].price * 0.7
+                '>=': vps[0].price * 0.7,
+                '<=': vps[0].price * 1.3
               }
             })
             .sort({

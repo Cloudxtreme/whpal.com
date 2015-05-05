@@ -3,6 +3,8 @@ var app = angular.module('backendApp', [
     'ngSanitize',
     'smart-table',
     'ui.bootstrap',
+    'angulartics',
+    'angulartics.google.analytics'
   ])
   .run(['$rootScope', '$state', '$stateParams', '$http', 'VPS', 'Cloud',
     function($rootScope, $state, $stateParams, $http, VPS, Cloud) {
@@ -20,8 +22,9 @@ var app = angular.module('backendApp', [
       $rootScope.$stateParams = $stateParams;
     }
   ])
-  .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
-    function($stateProvider, $urlRouterProvider, $locationProvider) {
+  .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$analyticsProvider',
+    function($stateProvider, $urlRouterProvider, $locationProvider, $analyticsProvider) {
+      $analyticsProvider.virtualPageviews(false);
       $locationProvider.hashPrefix('!');
       $urlRouterProvider.otherwise('/vps-listing')
       $stateProvider.state("backend_vps_detail", {
@@ -35,8 +38,8 @@ var app = angular.module('backendApp', [
         },
         templateUrl: "/frontend/partials/vps-detail.html",
         url: "/vps/{id}",
-        controller: ['$rootScope', '$scope', '$stateParams', 'vps', 'VPS', 'plans',
-          function($rootScope, $scope, $stateParams, vps, VPS, plans) {
+        controller: ['$rootScope', '$scope', '$stateParams', 'vps', 'VPS', 'plans', '$analytics',
+          function($rootScope, $scope, $stateParams, vps, VPS, plans, $analytics) {
             $scope.vps = vps.data;
             $rootScope.title = $scope.vps.provider.name + " - " + $scope.vps.name + ' ' + $scope.vps.ram + 'GB RAM VPS | WHPal';
             if ($scope.vps.location !== '') {
@@ -47,6 +50,7 @@ var app = angular.module('backendApp', [
             $rootScope.keywords = 'VPS, hosting, web hosting, CDN';
             $rootScope.currentAction = $scope.vps.provider.name + " - " + $scope.vps.name;
             $scope.plans = plans.data;
+            $analytics.pageTrack('/vps/' + $stateParams.id);
           }
         ]
       });
@@ -58,11 +62,12 @@ var app = angular.module('backendApp', [
         },
         templateUrl: "/frontend/partials/vps.html",
         url: "/vps-listing",
-        controller: ['$rootScope', '$scope', '$stateParams', 'vps', 'VPS',
-          function($rootScope, $scope, $stateParams, vps, VPS) {
-            $rootScope.title = 'WHPal: Web Hosting Listing';
+        controller: ['$rootScope', '$scope', '$stateParams', 'vps', 'VPS', '$analytics',
+          function($rootScope, $scope, $stateParams, vps, VPS, $analytics) {
+            $rootScope.title = 'VPS Hosting Listing | WHPal';
             $rootScope.description = 'WHPal provides a comprehensive list of web hosting service. You may even sort, filter and compare different plans.';
             $rootScope.keywords = 'VPS, hosting, web hosting, CDN';
+            $analytics.pageTrack('/vps-lsting');
 
             function vpsFilter(rows, criteria) {
               var filtered = [];
@@ -183,6 +188,39 @@ var app = angular.module('backendApp', [
             $scope.toggleWindows = function() {
               $scope.criteria.boolwin = !$scope.criteria.boolwin;
             }
+            $scope.compareItems = [];
+            $scope.compareTableWidth = 350;
+            $scope.compareTable = false;
+            $scope.compare = function(id) {
+              for (i = 0; i < $scope.vps.length; i++) {
+                if (id === $scope.vps[i].id) {
+                  $theVPS = $scope.vps[i];
+                  break;
+                }
+              }
+              for (i = 0; i < $scope.compareItems.length; i++) {
+                if (id === $scope.compareItems[i].id) {
+                  $theVPS = $scope.compareItems[i];
+                  $scope.compareTable = true;
+                  return false;
+                }
+              }
+              $scope.compareItems.push($theVPS);
+              $scope.compareTableWidth = 350 * $scope.compareItems.length;
+              $scope.compareTable = true;
+              console.log($scope.compareItems);
+            }
+            $scope.removeCompare = function(id) {
+              for (i = 0; i < $scope.compareItems.length; i++) {
+                if (id === $scope.compareItems[i].id) {
+                  $scope.compareItems.splice(i, 1);
+                  break;
+                }
+              }
+              if ($scope.compareItems.length === 0) {
+                $scope.compareTable = false;
+              }
+            }
             $('.cpuslider').noUiSlider({
               start: [$scope.criteria.minram, $scope.criteria.maxram],
               step: 1,
@@ -268,8 +306,8 @@ var app = angular.module('backendApp', [
         },
         templateUrl: "/frontend/partials/cloud-detail.html",
         url: "/cloud/{id}",
-        controller: ['$rootScope', '$scope', '$stateParams', 'cloud', 'Cloud', 'plans',
-          function($rootScope, $scope, $stateParams, cloud, VPS, plans) {
+        controller: ['$rootScope', '$scope', '$stateParams', 'cloud', 'Cloud', 'plans', '$analytics',
+          function($rootScope, $scope, $stateParams, cloud, VPS, plans, $analytics) {
             $scope.cloud = cloud.data;
             $rootScope.title = $scope.cloud.provider.name + " - " + $scope.cloud.name + ' ' + $scope.cloud.ram + 'GB RAM Cloud | WHPal';
             if ($scope.cloud.location !== '') {
@@ -280,6 +318,7 @@ var app = angular.module('backendApp', [
             $rootScope.keywords = 'VPS, hosting, web hosting, CDN';
             $rootScope.currentAction = $scope.cloud.provider.name + " - " + $scope.cloud.name;
             $scope.plans = plans.data;
+            $analytics.pageTrack('/cloud/' + $stateParams.id);
           }
         ]
       });
@@ -291,11 +330,12 @@ var app = angular.module('backendApp', [
         },
         templateUrl: "/frontend/partials/cloud.html",
         url: "/cloud-listing",
-        controller: ['$rootScope', '$scope', '$stateParams', 'cloud', 'Cloud',
-          function($rootScope, $scope, $stateParams, cloud, Cloud) {
-            $rootScope.title = 'WHPal: Web Hosting Listing';
+        controller: ['$rootScope', '$scope', '$stateParams', 'cloud', 'Cloud', '$analytics',
+          function($rootScope, $scope, $stateParams, cloud, Cloud, $analytics) {
+            $rootScope.title = 'Cloud Hosting Listing | WHPal';
             $rootScope.description = 'WHPal provides a comprehensive list of web hosting service. You may even sort, filter and compare different plans.';
             $rootScope.keywords = 'VPS, hosting, web hosting, CDN';
+            $analytics.pageTrack('/cloud-listing');
 
             function cloudFilter(rows, criteria) {
               var filtered = [];
@@ -427,6 +467,7 @@ var app = angular.module('backendApp', [
         url: "/about-us",
         controller: ['$rootScope', '$scope', '$stateParams',
           function($rootScope, $scope, $stateParams) {
+            $rootScope.title = 'About US | WHPal';
             $rootScope.currentAction = "About US";
           }
         ]

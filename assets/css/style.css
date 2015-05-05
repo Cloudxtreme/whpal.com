@@ -1,5 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Montserrat:700);
-@import url(http://fonts.googleapis.com/css?family=Hind:400,700);
+@import url(http://fonts.googleapis.com/css?family=Montserrat:700|Hind:400,700);
 *{
   font-family: 'Hind', sans-serif;
 }
@@ -143,6 +142,8 @@ ul{
   height: 56px;
 }
 .left-menu > ul > li > a > .icon > .fa{
+  width: 56px;
+  height: 56px;
   background: #384D81;
   padding: 1.5rem;
   border-radius: 50%;
@@ -214,7 +215,7 @@ ul{
   top: 6px;
   right: 10px;
   display: block;
-  z-index: 9999;
+  z-index: 999;
   pointer-events: none;
 }
 .st-sort-ascent::before,
@@ -327,12 +328,30 @@ ul{
 }
 .signup-btn{
   background: #597E81;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  -webkit-box-shadow: inset 0px -4px 0px 0px rgba(0,0,0,0.3);
+  -moz-box-shadow: inset 0px -4px 0px 0px rgba(0,0,0,0.3);
+  box-shadow: inset 0px -4px 0px 0px rgba(0,0,0,0.3);
+}
+.signup-btn:hover, .signup-btn:active, .signup-btn:focus{
+  -webkit-box-shadow: inset 0px -2px 0px 0px rgba(0,0,0,0.3);
+  -moz-box-shadow: inset 0px -2px 0px 0px rgba(0,0,0,0.3);
+  box-shadow: inset 0px -2px 0px 0px rgba(0,0,0,0.3);
+  color: #fff;
+}
+.signup-btn:active{
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.compare-btn{
+  background: #4968B8;
 }
 a.signup-btn{
   color: #fff;
   font-weight: 700;
 }
-
 .hosting-detail{
   margin: 15px 0;
 }
@@ -343,7 +362,7 @@ a.signup-btn{
   width: 100%;
 }
 
-.hosting-detail caption{
+.hosting-detail h2{
   font-family: 'Montserrat', sans-serif;
   font-size: 1.6rem;
   padding: 1.5rem 2.5rem;  
@@ -393,7 +412,119 @@ em.warning{
 .misc{
   margin-top: 15px;
 }
+.overlay-black{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.6);
+  z-index: 65534;
 
+}
+.comparison-table{
+  width: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  height: 640px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  padding: 0 50px 0 50px;
+  margin-left: 240px;
+  z-index: 65535;
+}
+.comparison-table-plan{
+  float: left;
+  width: 350px;
+}
+.comparison-table-outer-container{
+  overflow-x:auto;
+}
+.comparison-table-inner-container{
+  width: 2800px;
+}
+.comparison-table-plan:first-child .comparison-table-plan-header{
+  border-radius: 3px 0 0 0;
+}
+.comparison-table-plan:first-child .comparison-table-plan_detail{
+  border-radius: 0 0 0 3px;
+}
+.comparison-table-plan:last-child .comparison-table-plan-header{
+  border-radius: 0 3px 0 0;
+  border-right: 0;
+}
+.comparison-table-plan:last-child .comparison-table-plan_detail{
+  border-radius: 0 0 3px 0;
+}
+.comparison-table-plan-header{
+  position: relative;
+  background: #233156;
+  color: #fff;
+  text-align: center;
+  padding: 2.5rem;
+  height: 180px;
+  border-right: 2px solid #4A4F69;
+}
+.plan-name{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+.plan-name a{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: #fff;
+}
+.plan-price{
+  font-size: 3rem;
+}
+.plan-price-caption{
+  font-size: 1.5rem;
+  color: #bbb;
+}
+.compareTable-remove{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.comparison-table-plan:first-child .comparison-table-plan_detail{
+  border-left: 2px solid #ccc;
+
+}
+.comparison-table-plan_detail{
+  text-align: center;
+  border-right: 2px solid #ccc;
+  border-bottom: 2px solid #ccc;
+  max-height: 460px;
+  overflow: auto;
+}
+.comparison-table-plan_detail > div{
+  border-bottom: 1px solid #ccc;
+  padding: 1rem;
+  background: #fff;
+}
+.comparison-table-plan_detail > div:last-child{
+  border-bottom: 0
+}
+.close-overlay{
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  color: #CCC;
+  border-radius: 50%;
+  border: 3px solid #CCC;
+  text-align: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  line-height: 32px;
+  cursor: pointer;
+}
 @media screen and (max-width: 1600px) {
   .left-menu{
     width: 96px;
@@ -432,6 +563,9 @@ em.warning{
   .main{
     padding-left: 96px;
   }
+  .comparison-table{
+    margin-left: 100px;
+  }
 }
 @media screen and (max-width: 1200px) {
   .col-xs-3{
@@ -461,8 +595,14 @@ em.warning{
   .filter-panel>div.filter-first {
     height: auto;
   }
+  .comparison-table{
+    margin-left: 0px;
+  }
 }
 @media screen and (max-width: 600px) {
+  .compare-btn{
+    display: none;
+  }
   .left-menu{
     left: -96px;
   }

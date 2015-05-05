@@ -79,7 +79,8 @@ module.exports = {
                 '>=': cloud[0].ram
               },
               monthPrice: {
-                '>=': cloud[0].monthPrice * 0.7
+                '>=': cloud[0].monthPrice * 0.7,
+                '<=': cloud[0].monthPrice * 1.3
               }
             })
             .sort({
