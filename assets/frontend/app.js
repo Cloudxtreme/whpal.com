@@ -47,6 +47,31 @@ var app = angular.module('backendApp', [
           }
         ]
       });
+      $stateProvider.state("backend_provider_detail", {
+        resolve: {
+          provider: ['Provider', '$stateParams', function(Provider, $stateParams) {
+            return Provider.get($stateParams.id.match(/\d+/)[0]);
+          }],
+          plans: ['Provider', '$stateParams', function(Provider, $stateParams) {
+            return Provider.plans($stateParams.id.match(/\d+/)[0]);
+          }]
+        },
+        templateUrl: "/frontend/partials/provider-detail.html",
+        url: "/provider/{id}",
+        controller: ['$rootScope', '$scope', '$stateParams', 'provider', 'plans', '$analytics',
+          function($rootScope, $scope, $stateParams, provider, plans, $analytics) {
+            $rootScope.keywords = 'VPS, hosting, web hosting, CDN';
+            $scope.provider = provider.data;
+            $rootScope.currentAction = $scope.provider.name;
+            $rootScope.title = $scope.provider.name + ' information | WHPal';
+            $rootScope.description = 'The hosting plans and coupons provided by '+$scope.provider.name;
+            $scope.vpsPlans = plans.data.vps;
+            $scope.cloudPlans = plans.data.cloud;
+            $scope.coupons = plans.data.coupon;
+            $analytics.pageTrack('/provider/'+$stateParams.id);
+          }
+        ]
+      });
       $stateProvider.state("backend_vps_detail", {
         resolve: {
           vps: ['VPS', '$stateParams', function(VPS, $stateParams) {
@@ -183,6 +208,9 @@ var app = angular.module('backendApp', [
                   break;
                 }
               }
+              $scope.compareTableWidth = 350 * $scope.compareItems.length;
+              if ($scope.compareTableWidth === 350)
+                $scope.compareTableWidth = 700;
               if ($scope.compareItems.length === 0) {
                 $scope.compareTable = false;
               }
@@ -488,6 +516,19 @@ app.factory('Cloud', ['$http', function($http) {
   };
   return factory;
 }]);
+app.factory('Provider', ['$http', function($http) {
+  var factory = {};
+  factory.index = function() {
+    return $http.get('/provider/index');
+  };
+  factory.get = function(id) {
+    return $http.get('/provider/detail/' + id);
+  };
+  factory.plans = function(id) {
+    return $http.get('/provider/plans/' + id);
+  };
+  return factory;
+}]);
 app.filter('cpuFilter',
   function() {
     return function(input, scope) {
@@ -618,6 +659,22 @@ app.filter('locationDetailFilter',
       var allLocations = '';
       var regex = /\|/g;
       return input.replace(regex, '<br />');
+    }
+  });
+function pad(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
+
+app.filter('dateFilter',
+  function() {
+    return function(input, scope) {
+      var date = new Date(input);
+      if(date.getFullYear() > 2020){
+        return 'Never / Not mentioned';
+      }
+      return date.getFullYear() + '-' + pad(date.getMonth() + 1, 2) + '-' + pad(date.getDate(), 2);
     }
   });
 app.controller('mainController', ['$rootScope', '$scope', '$http',

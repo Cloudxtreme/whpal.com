@@ -2,47 +2,47 @@
     <table class="hosting-detail-table">
         <h2><i class="fa fa-server"></i> Cloud Detail</h2>
         <tr>
-            <th>Provider</th>
-            <td data-title="Provider">{{cloud.provider.name}}</td>
+            <th class="hosting-row">Provider</th>
+            <td data-title="Provider"><a href="/#!/provider/{{cloud.provider.slug}}">{{cloud.provider.name}}</a></td>
         </tr>
         <tr>
-            <th>Plan</th>
+            <th class="hosting-row">Plan</th>
             <td data-title="Plan">{{cloud.name}}</td>
         </tr>
         <tr>
-            <th>CPU</th>
+            <th class="hosting-row">CPU</th>
             <td data-title="CPU">{{cloud.cpu | cpuFilter}}<span ng-bind-html="cloud.cpuCharge | cpuChargeFilter"></td>
         </tr>
         <tr>
-            <th>RAM</th>
+            <th class="hosting-row">RAM</th>
             <td data-title="RAM">{{cloud.ram | ramFilter}}<div ng-bind-html="cloud.ramCharge | ramChargeFilter"></div></td>
         </tr>
         <tr>
-            <th>Storage</th>
+            <th class="hosting-row">Storage</th>
             <td data-title="Storage">{{cloud.hdspace}} GB {{cloud.hdtype}}<div ng-bind-html="cloud.hdCharge | hdChargeFilter"></div></td>
         </tr>
         <tr>
-            <th>Traffic</th>
+            <th class="hosting-row">Traffic</th>
             <td data-title="Traffic"><div ng-bind-html="cloud.bandwidth | bwFilter"></div><div ng-bind-html="cloud.bandwidthCharge | bwChargeFilter"></div></td>
         </tr>
         <tr>
-            <th>Network</th>
+            <th class="hosting-row">Network</th>
             <td data-title="Port Speed">{{cloud.portSpeed | portSpeedFilter}}</td>
         </tr>
         <tr>
-            <th>IP</th>
+            <th class="hosting-row">IP</th>
             <td data-title="IP"><span ng-bind-html="cloud.ipv4 | ipv4Filter"></span><div ng-bind-html="cloud.ipv4Charge | ipChargeFilter"></div><span ng-bind-html="cloud.ipv6 | ipv6Filter"></span><div ng-bind-html="cloud.ipv6Charge | ipChargeFilter"></div></td>
         </tr>
         <tr>
-            <th>Location</th>
+            <th class="hosting-row">Location</th>
             <td data-title="Location" ng-bind-html="cloud.location | locationDetailFilter"></td>
         </tr>
-        <tr ng-show="cloud.remark">
-            <th>Remarks</th>
+        <tr class='hide' ng-class="cloud.remark? 'showrow':'hide'">
+            <th class="hosting-row">Remarks</th>
             <td data-title="Remarks" ng-bind-html="cloud.remark | locationDetailFilter"></td>
         </tr>
         <tr>
-            <th>PRICE</th>
+            <th class="hosting-row">PRICE</th>
             <td data-title="Price">${{cloud.monthPrice}} / month<div><a rel="nofollow" class="signup-btn btn" href="{{cloud.link}}" target="_blank">SIGN UP</a></td>
         </tr>
     </table>

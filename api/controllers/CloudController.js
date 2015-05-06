@@ -147,6 +147,7 @@ module.exports = {
                     debug: "FATAL ERROR"
                   });
                 } else {
+                  Cache.del('providerIndex');
                   provider_id = provider.id;
                   createCloud();
                 }
@@ -250,6 +251,7 @@ module.exports = {
                     debug: "FATAL ERROR"
                   });
                 } else {
+                  Cache.del('providerIndex');
                   provider_id = provider.id;
                   updateCloud();
                 }

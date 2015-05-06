@@ -1,0 +1,100 @@
+<div class="hosting-detail col-xs-6">
+  <table class="hosting-detail-table">
+  <h2><i class="fa fa-briefcase"></i> Provider Detail</h2>
+    <tr>
+      <th class="hosting-row">Provider</th>
+      <td data-title="Provider"><a href="{{provider.link}}" rel="nofollow" target="_blank">{{provider.name}}</a></td>
+    </tr>
+    <tr>
+      <th class="hosting-row">Description</th>
+      <td data-title="Plan">{{provider.description}}</td>
+    </tr>
+    <tr>
+      <th class="hosting-row">Alexa</th>
+      <td data-title="Alexa">{{provider.alexa}}</td>
+    </tr>
+    <tr>
+      <th class="hosting-row">WHOIS</th>
+      <td data-title="WHOIS"><a href="http://whois.domaintools.com/{{provider.link}}" rel="nofollow" target="_blank">Check Domain</a></td>
+    </tr>
+  </table>
+</div>
+<div class="hosting-detail col-xs-6">
+  <div class="table-wrapper nopadding">
+    <table class="similar-plan-table">
+      <h2><i class="fa fa-ticket"></i> Coupons</h2>
+      <thead class='hide' ng-class="coupons.length === 0? 'hide':'showheadergroup'">
+        <tr>
+          <th>Code</th>
+          <th>Description</th>
+          <th>Expiry Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <div class='table-caption hide' ng-class="coupons.length === 0? 'show':'hide'">
+          No coupon available
+        </div>
+        <tr ng-repeat="row in coupons">
+          <td data-title="Code">{{row.code}}</td>
+          <td data-title="Description">{{row.description}}</td>
+          <td data-title="Expiry Date">{{row.expired | dateFilter}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="clearfix"></div>
+<div ng-class="vpsPlans.length === 0? 'hide':'show'" class="hide hosting-detail col-xs-6">
+    <div class="table-wrapper nopadding">
+        <table class="similar-plan-table">
+            <h2><i class="fa fa-server"></i> VPS Hostings</h2>
+            <thead>
+                <tr>
+                    <th>Plan</th>
+                    <th>CPU</th>
+                    <th>RAM</th>
+                    <th>Harddisk</th>
+                    <th>Traffic</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in vpsPlans">
+                    <td data-title="Plan"><a class="scrollTop" href="/#!/vps/{{row.slug}}">{{row.name}}</a></td>
+                    <td data-title="CPU">{{row.cpu | cpuFilter}}</td>
+                    <td data-title="RAM">{{row.ram}} GB</td>
+                    <td data-title="Harddsk">{{row.hdspace}} GB {{row.hdtype}}</td>
+                    <td data-title="Traffic">{{row.bandwidth | bwFilter}}</td>
+                    <td data-title="Price">${{row.price}} / month</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div ng-class="cloudPlans.length === 0? 'hide':'show'" class="hide hosting-detail col-xs-6">
+    <div class="table-wrapper nopadding">
+        <table class="similar-plan-table">
+            <h2><i class="fa fa-cloud"></i> Cloud Hostings</h2>
+            <thead>
+                <tr>
+                    <th>Plan</th>
+                    <th>CPU</th>
+                    <th>RAM</th>
+                    <th>Harddisk</th>
+                    <th>Traffic</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in cloudPlans">
+                    <td data-title="Plan"><a class="scrollTop" href="/#!/cloud/{{row.slug}}">{{row.name}}</a></td>
+                    <td data-title="CPU">{{row.cpu | cpuFilter}}</td>
+                    <td data-title="RAM">{{row.ram}} GB</td>
+                    <td data-title="Harddsk">{{row.hdspace}} GB {{row.hdtype}}</td>
+                    <td data-title="Traffic">{{row.bandwidth | bwFilter}}</td>
+                    <td data-title="Price">${{row.monthPrice}} / month</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

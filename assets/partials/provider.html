@@ -1,0 +1,24 @@
+<div class="col-md-12 main-view">
+  <div class="chart">
+    <div class="normal-content">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Alexa</th>
+            <th>Link</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="row in provider">
+            <td>{{row.name}}</td>
+            <td>{{row.alexa}}</td>
+            <td>{{row.link}}</td>
+            <td><a href="#/provider/detail/{{row.id}}"><button ng-click="addProvider()" class="btn">Modify</button></a> <button ng-click="deleteProvider(row.id)" class="btn btn-warning">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

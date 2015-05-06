@@ -6,6 +6,23 @@ html,body{
   height: 100%;
   font-size: 14px;
 }
+.hide{
+  display: none !important;
+}
+.show{
+  display: block !important;
+}
+.showrow{
+  display: table-row !important;
+}
+.showheadergroup{
+  display: table-header-group !important;
+}
+.table-caption{
+  padding: 1.5rem;
+  text-align: center;
+  background: #FFF;
+}
 h1, h2, h3, h4, h5 {
   padding: 0;
   margin: 0;
@@ -217,6 +234,16 @@ ul{
   display: block;
   z-index: 999;
   pointer-events: none;
+}
+.global-search > th{
+  padding: 1.5rem;
+  background: #efefef;
+}
+.global-search input{
+  border-radius: 25px;
+  padding: 1.5rem;
+  line-height: 40px;
+  border: 2px solid #ccc;
 }
 .st-sort-ascent::before,
 .st-sort-descent::before{
@@ -662,7 +689,7 @@ em.warning{
   }
   .filter-table thead tr ,
   .hosting-detail thead tr,
-  .hosting-detail th{ 
+  .hosting-detail th.hosting-row{ 
     position: absolute;
     top: -9999px;
     left: -9999px;

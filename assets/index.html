@@ -27,7 +27,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/6.2.0/jquery.nouislider.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="/css/style.css?v=20150505b">
+  <link rel="stylesheet" href="/css/style.css?v=20150506d">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/6.2.0/jquery.nouislider.min.js"></script>
   <!--AngularJS-->
@@ -39,7 +39,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-smart-table/2.0.2/smart-table.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angulartics/0.17.2/angulartics.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angulartics/0.17.2/angulartics-ga.min.js"></script>
-  <script src="/frontend/app.js?v=20150505b"></script>
+  <script src="/frontend/app.js?v=20150506d"></script>
 </head>
 <body ng-controller="mainController">
   <div class="left-menu">
@@ -67,14 +67,14 @@
         </a>
       </li>
       <li ng-class="{currentTab: currentTab.indexOf('backend_cloud') > -1}">
-        <a href="#!/cloud-listing">
+        <a href="/#!/cloud-listing">
           <div class="icon"><i class="fa fa-cloud"></i></div>
           <div class="tab-name">Cloud Hosting</div>
           <div class="desp">{{cloudCount}} Hostings</div>
         </a>
       </li>
       <li ng-class="{currentTab: currentTab.indexOf('backend_about_us') > -1}">
-        <a href="#!/about-us">
+        <a href="/#!/about-us">
           <div class="icon"><i class="fa fa-user"></i></div>
           <div class="tab-name">About US</div>
           <div class="desp">Get in touch</div>

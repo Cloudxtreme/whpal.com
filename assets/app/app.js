@@ -85,6 +85,119 @@ var app = angular.module('backendApp', [
           }
         ]
       });
+      $stateProvider.state("backend_coupon", {
+        resolve: {
+          coupon: ['Coupon', '$stateParams', function(Coupon, $stateParams) {
+            return Coupon.index();
+          }]
+        },
+        templateUrl: "/partials/coupon.html",
+        url: "/coupon",
+        controller: ['$rootScope', '$scope', '$stateParams', 'coupon', 'Coupon',
+          function($rootScope, $scope, $stateParams, coupon, Coupon) {
+            $rootScope.currentAction = "Coupon Management";
+            $scope.coupon = coupon.data;
+            $scope.deleteCoupon = function(id) {
+              Provider.delete(id);
+              for (i = 0; i < $scope.coupon.length; i++) {
+                if (id === $scope.coupon[i].id) {
+                  $scope.coupon.splice(i, 1);
+                  break;
+                }
+              }
+            }
+          }
+        ]
+      });
+      $stateProvider.state("backend_coupon_edit", {
+        resolve: {
+          coupon: ['Coupon', '$stateParams', function(Coupon, $stateParams) {
+            if ($stateParams.id) {
+              return Coupon.get($stateParams.id);
+            }
+            return;
+          }]
+        },
+        templateUrl: "/partials/coupon_detail.html",
+        url: "/coupon/detail/{id}",
+        controller: ['$rootScope', '$scope', '$stateParams', 'coupon', 'Coupon',
+          function($rootScope, $scope, $stateParams, coupon, Coupon) {
+            $rootScope.currentAction = "Coupon Management";
+            $scope.coupon = {};
+            if ($stateParams.id) {
+              $scope.coupon = coupon.data;
+              $scope.coupon.provider = $scope.coupon.provider.name || '';
+              $scope.updateCoupon= function() {
+                Coupon.update($scope.coupon).then(function(res) {
+                  $scope.msg = "Updated";
+                });
+              }
+            } else {
+              $scope.updateCoupon = function() {
+                Coupon.create($scope.coupon).then(function(res) {
+                  $scope.msg = "Created";
+                });
+              }
+            }
+          }
+        ]
+      });
+      $stateProvider.state("backend_provider", {
+        resolve: {
+          provider: ['Provider', '$stateParams', function(Provider, $stateParams) {
+            return Provider.index();
+          }]
+        },
+        templateUrl: "/partials/provider.html",
+        url: "/provider",
+        controller: ['$rootScope', '$scope', '$stateParams', 'provider', 'Provider',
+          function($rootScope, $scope, $stateParams, provider, Provider) {
+            $rootScope.currentAction = "Provider Management";
+            $scope.provider = provider.data;
+            $scope.deleteProvider = function(id) {
+              Provider.delete(id);
+              for (i = 0; i < $scope.provider.length; i++) {
+                if (id === $scope.provider[i].id) {
+                  $scope.provider.splice(i, 1);
+                  break;
+                }
+              }
+            }
+          }
+        ]
+      });
+      $stateProvider.state("backend_provider_edit", {
+        resolve: {
+          provider: ['Provider', '$stateParams', function(Provider, $stateParams) {
+            if ($stateParams.id) {
+              return Provider.get($stateParams.id);
+            }
+            return;
+          }]
+        },
+        templateUrl: "/partials/provider_detail.html",
+        url: "/provider/detail/{id}",
+        controller: ['$rootScope', '$scope', '$stateParams', 'provider', 'Provider',
+          function($rootScope, $scope, $stateParams, provider, Provider) {
+            $rootScope.currentAction = "Provider Management";
+            $scope.provider = {};
+            if ($stateParams.id) {
+              $scope.provider = provider.data;
+              $scope.updateProvider = function() {
+                Provider.update($scope.provider).then(function(res) {
+                  $scope.msg = "Updated";
+                });
+              }
+            } else {
+              $scope.updateProvider = function() {
+                Provider.create($scope.provider).then(function(res) {
+                  $scope.msg = "Created";
+                });
+              }
+            }
+          }
+        ]
+      });
       $stateProvider.state("backend_cloud", {
         resolve: {
           cloud: ['Cloud', '$stateParams', function(Cloud, $stateParams) {
@@ -185,7 +298,6 @@ app.factory('VPS', ['$http', function($http) {
     return $http.post('/vps/update/', vps);
   };
   factory.delete = function(id) {
-    console.log(id);
     return $http.post('/vps/delete/' + id);
   };
   return factory;
@@ -206,8 +318,45 @@ app.factory('Cloud', ['$http', function($http) {
     return $http.post('/cloud/update/', cloud);
   };
   factory.delete = function(id) {
-    console.log(id);
     return $http.post('/cloud/delete/' + id);
+  };
+  return factory;
+}]);
+app.factory('Provider', ['$http', function($http) {
+  var factory = {};
+  factory.index = function() {
+    return $http.get('/provider/index');
+  };
+  factory.get = function(id) {
+    return $http.get('/provider/detail/' + id);
+  };
+  factory.create = function(provider) {
+    return $http.post('/provider/create/', provider);
+  };
+  factory.update = function(provider) {
+    return $http.post('/provider/update/', provider);
+  };
+  factory.delete = function(id) {
+    return $http.post('/provider/delete/' + id);
+  };
+  return factory;
+}]);
+app.factory('Coupon', ['$http', function($http) {
+  var factory = {};
+  factory.index = function() {
+    return $http.get('/coupon/index');
+  };
+  factory.get = function(id) {
+    return $http.get('/coupon/detail/' + id);
+  };
+  factory.create = function(coupon) {
+    return $http.post('/coupon/create/', coupon);
+  };
+  factory.update = function(coupon) {
+    return $http.post('/coupon/update/', coupon);
+  };
+  factory.delete = function(id) {
+    return $http.post('/coupon/delete/' + id);
   };
   return factory;
 }]);

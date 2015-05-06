@@ -1,0 +1,31 @@
+<div class="col-md-12 main-view">
+  <div class="form-layout">
+    <div class="form-title">
+      {{crud_action}}
+    </div>
+    <div ng-show="msg" class="msg">
+      <i class="fa fa-check"></i> {{msg}}
+    </div>
+    <form ng-submit="updateCoupon()">
+      <div class="form-group first-group">
+        <label for="vps_link" class="col-xs-3">Provider</label>
+        <input required ng-model="coupon.provider" class="col-xs-4" name="name" type="text" id="vps_link">
+      </div>
+      <div class="form-group">
+        <label for="vps_provider" class="col-xs-3">Code</label>
+        <input required ng-model="coupon.code" class="col-xs-4" name="name" type="text" id="vps_provider">
+      </div>
+      <div class="form-group ">
+        <label for="provider_description" class="col-xs-3">Description</label>
+        <textarea required ng-model="coupon.description" class="col-xs-4" id="provider_description">{{provider.description}}</textarea>
+      </div>
+      <div class="form-group ">
+        <label for="vps_name" class="col-xs-3">Expiry Date</label>
+        <input required ng-model="coupon.expired" class="col-xs-4" name="name" type="text" id="vps_name">
+      </div>
+      <div class="form-bottom">
+        <input class="btn" type="submit">
+      </div>
+    </form>
+  </div>
+</div>

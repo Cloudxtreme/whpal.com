@@ -34,6 +34,8 @@ module.exports.routes = {
 
   '/': {
     'GET /vps/detail/:id': 'VpsController.detail',
+    'GET /provider/plans/:id': 'ProviderController.plans',
+    'GET /coupon/detail/:id': 'CouponController.detail',
     'GET /cloud/detail/:id': 'CloudController.detail',
     'GET /vps/similar/:id': 'VpsController.similar',
     'GET /cloud/similar/:id': 'CloudController.similar',

@@ -2,51 +2,51 @@
     <table class="hosting-detail-table">
         <h2><i class="fa fa-server"></i> VPS Detail</h2>
         <tr>
-            <th>Provider</th>
-            <td data-title="Provider">{{vps.provider.name}}</td>
+            <th class="hosting-row">Provider</th>
+            <td data-title="Provider"><a href="/#!/provider/{{vps.provider.slug}}">{{vps.provider.name}}</a></td>
         </tr>
         <tr>
-            <th>Plan</th>
+            <th class="hosting-row">Plan</th>
             <td data-title="Plan">{{vps.name}}</td>
         </tr>
         <tr>
-            <th>CPU</th>
+            <th class="hosting-row">CPU</th>
             <td data-title="CPU">{{vps.cpu | cpuFilter}}</td>
         </tr>
         <tr>
-            <th>RAM</th>
+            <th class="hosting-row">RAM</th>
             <td data-title="RAM">{{vps.ram}} GB</td>
         </tr>
         <tr>
-            <th>Storage</th>
+            <th class="hosting-row">Storage</th>
             <td data-title="Storage">{{vps.hdspace}} GB {{vps.hdtype}}</td>
         </tr>
         <tr>
-            <th>Traffic</th>
+            <th class="hosting-row">Traffic</th>
             <td data-title="Traffic">{{vps.bandwidth | bwFilter}}</td>
         </tr>
         <tr>
-            <th>Network</th>
+            <th class="hosting-row">Network</th>
             <td data-title="Port Speed">{{vps.portSpeed | portSpeedFilter}}</td>
         </tr>
         <tr>
-            <th>IP</th>
+            <th class="hosting-row">IP</th>
             <td data-title="IP"><span ng-bind-html="vps.ipv4 | ipv4Filter"></span><span ng-bind-html="vps.ipv6 | ipv6Filter"></span></td>
         </tr>
         <tr>
-            <th>Platform</th>
+            <th class="hosting-row">Platform</th>
             <td data-title="Platform">{{vps.virtualization}}</td>
         </tr>
         <tr>
-            <th>Location</th>
+            <th class="hosting-row">Location</th>
             <td data-title="Location" ng-bind-html="vps.location | locationDetailFilter"></td>
         </tr>
-        <tr ng-show="vps.remark">
-            <th>Remarks</th>
+        <tr class='hide' ng-class="vps.remark? 'showrow':'hide'">
+            <th class="hosting-row">Remarks</th>
             <td data-title="Remarks" ng-bind-html="vps.remark | locationDetailFilter"></td>
         </tr>
         <tr>
-            <th>PRICE</th>
+            <th class="hosting-row">PRICE</th>
             <td data-title="Price">${{vps.price}} / month<div><a rel="nofollow" class="signup-btn btn" href="{{vps.link}}" target="_blank">SIGN UP</a></td>
         </tr>
     </table>

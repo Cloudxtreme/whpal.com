@@ -137,6 +137,7 @@ module.exports = {
                     debug: "FATAL ERROR"
                   });
                 } else {
+                  Cache.del('providerIndex');
                   provider_id = provider.id;
                   createVPS();
                 }
@@ -222,6 +223,7 @@ module.exports = {
                     debug: "FATAL ERROR"
                   });
                 } else {
+                  Cache.del('providerIndex');
                   provider_id = provider.id;
                   updateVPS();
                 }

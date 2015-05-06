@@ -53,9 +53,11 @@
         </tr>
       </thead>
       <tbody>
-        <!-- <tr ng-repeat="row in vps | matchFilter:criteria"> -->
+        <tr class="global-search">
+          <th colspan="12"><input st-search="" class="form-control" placeholder="Search anything (eg. Provider, Managed, Backup...)" type="text"/></th>
+        </tr>
         <tr ng-repeat="row in cloud">
-          <td data-title="Provider">{{row.provider.name}}</td>
+          <td data-title="Provider"><a href="/#!/provider/{{row.provider.slug}}">{{row.provider.name}}</a></td>
           <td data-title="Plan"><a class="scrollTop" href="/#!/cloud/{{row.slug}}">{{row.name}}</a> <span ng-show="row.remark" tooltip-placement="left"tooltip-animation="false" tooltip-html-unsafe="{{row.remark | locationDetailFilter}}"><i class="fa fa-info-circle"></i></span></td>
           <td data-title="CPU">{{row.cpu | cpuFilter}}<span ng-bind-html="row.cpuCharge | cpuChargeFilter"></td>
           <td data-title="RAM">{{row.ram | ramFilter}}<div ng-bind-html="row.ramCharge | ramChargeFilter"></div></td>

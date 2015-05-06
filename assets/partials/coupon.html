@@ -1,0 +1,24 @@
+<div class="col-md-12 main-view">
+  <div class="chart">
+    <div class="normal-content">
+      <table>
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Description</th>
+            <th>Expiry Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="row in coupon">
+            <td>{{row.code}}</td>
+            <td>{{row.description}}</td>
+            <td>{{row.expired}}</td>
+            <td><a href="#/coupon/detail/{{row.id}}"><button ng-click="addCoupon()" class="btn">Modify</button></a> <button ng-click="deleteProvider(row.id)" class="btn btn-warning">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
