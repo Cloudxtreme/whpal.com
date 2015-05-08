@@ -12,84 +12,85 @@ module.exports = {
       .sort({
         'updatedAt': 'desc'
       })
-      .exec(function(err, coupon) {
+      .then(function(coupon) {
         res.send(coupon);
       })
+      .catch(function(err) {
+        res.send(500, err);
+      });
   },
   detail: function(req, res) {
     var id = req.param('id');
     Coupon
-      .find({
+      .findOne({
         id: id
       })
       .populate('provider')
-      .exec(function(err, coupon) {
-        res.send(coupon[0]);
+      .then(function(coupon) {
+        res.send(coupon);
       })
+      .catch(function(err) {
+        res.send(500, err);
+      });
   },
   create: function(req, res) {
-    var provider = req.param('provider');
+    var providerName = req.param('provider');
     var code = req.param('code');
     var description = req.param('description');
     var expired = req.param('expired');
     Provider
-      .find({
-        name: provider
+      .findOne({
+        name: providerName
       })
-      .exec(function(err, providers) {
-        if (err) {
-          console.log(err);
-          res.send(500, {
-            debug: "FATAL ERROR"
-          });
-        } else {
-          if (providers.length > 0) {
-            Coupon
-              .create({
-                provider: providers[0].id,
-                code: code,
-                description: description,
-                expired: expired
-              })
-              .exec(function(err, coupon) {
-                res.send(coupon);
-              })
-          }
+      .then(function(provider) {
+        if (provider) {
+          Coupon
+            .create({
+              provider: provider.id,
+              code: code,
+              description: description,
+              expired: expired
+            })
+            .then(function(coupon) {
+              res.send(coupon);
+            })
+            .catch(function(err) {
+              res.send(500, err);
+            });
         }
+      })
+      .catch(function(err) {
+        res.send(500, err);
       });
   },
   update: function(req, res) {
     var id = req.param('id');
-    var provider = req.param('provider');
+    var providerName = req.param('provider');
     var code = req.param('code');
     var description = req.param('description');
     var expired = req.param('expired');
     Provider
-      .find({
-        name: provider
+      .findOne({
+        name: providerName
       })
-      .exec(function(err, providers) {
-        if (err) {
-          console.log(err);
-          res.send(500, {
-            debug: "FATAL ERROR"
-          });
-        } else {
-          if (providers.length > 0) {
-            Coupon
-              .update({
-                id: id
-              }, {
-                provider: providers[0].id,
-                code: code,
-                description: description,
-                expired: expired
-              })
-              .exec(function(err, coupon) {
-                res.send(coupon);
-              })
-          }
+      .then(function(provider) {
+        if (provider) {
+          Coupon
+            .update({
+              id: id
+            }, {
+              provider: provider.id,
+              code: code,
+              description: description,
+              expired: expired
+            })
+            .exec(function(err, coupon) {
+              res.send(coupon);
+            })
         }
+      })
+      .catch(function(err) {
+        res.send(500, err);
       });
   },
 };

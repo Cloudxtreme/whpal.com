@@ -13,13 +13,17 @@ module.exports = {
     } else {
       Vps
         .find()
-        .exec(function(err, vps) {
+        .then(function(vps) {
           res.send({
             total: vps.length
           });
           Cache.set('vpsTotal', {
             total: vps.length
           });
+        })
+        .catch(function(err) {
+          res.send(500, err);
+          Cache.del('vpsTotal');
         });
     }
   },
@@ -34,9 +38,13 @@ module.exports = {
         .sort({
           updatedAt: 'desc'
         })
-        .exec(function(err, vps) {
+        .then(function(vps) {
           res.send(vps);
           Cache.set('vpsIndex', vps);
+        })
+        .catch(function(err) {
+          res.send(500, err);
+          Cache.del('vpsIndex');
         });
     }
   },
@@ -47,14 +55,18 @@ module.exports = {
       res.send(vpsCache);
     } else {
       Vps
-        .find({
+        .findOne({
           id: id
         })
         .populate('provider')
-        .exec(function(err, vps) {
-          res.send(vps[0]);
-          Cache.set('vps' + id, vps[0]);
+        .then(function(vps) {
+          res.send(vps);
+          Cache.set('vps' + id, vps);
         })
+        .catch(function(err) {
+          res.send(500, err);
+          Cache.del('vps' + id);
+        });
     }
   },
   similar: function(req, res) {
@@ -68,7 +80,7 @@ module.exports = {
           id: id
         })
         .populate('provider')
-        .exec(function(err, vps) {
+        .then(function(vps) {
           Vps
             .find({
               id: {
@@ -88,15 +100,21 @@ module.exports = {
             })
             .populate('provider')
             .limit(10)
-            .exec(function(err, vps) {
+            .then(function(vps) {
               res.send(vps);
               Cache.set('vpsPlan' + id, vps);
             })
+            .catch(function(err) {
+              Cache.del('vpsPlan' + id + id);
+            })
         })
+        .catch(function(err) {
+          res.send(500, err);
+        });
     }
   },
   create: function(req, res) {
-    var provider = req.param('provider');
+    var providerName = req.param('provider');
     var name = req.param('name');
     var cpu = req.param('cpu');
     var ram = req.param('ram');
@@ -113,37 +131,28 @@ module.exports = {
     var remark = req.param('remark');
     var provider_id;
     Provider
-      .find({
-        name: provider
+      .findOne({
+        name: providerName
       })
-      .exec(function(err, providers) {
-        if (err) {
-          console.log(err);
-          res.send(500, {
-            debug: "FATAL ERROR"
-          });
+      .then(function(provider) {
+        if (provider) {
+          provider_id = provider.id;
+          createVPS();
         } else {
-          if (providers.length > 0) {
-            provider_id = providers[0].id;
-            createVPS();
-          } else {
-            Provider
-              .create({
-                name: provider
-              }).exec(function(err, provider) {
-                if (err) {
-                  console.log(err);
-                  res.send(500, {
-                    debug: "FATAL ERROR"
-                  });
-                } else {
-                  Cache.del('providerIndex');
-                  provider_id = provider.id;
-                  createVPS();
-                }
-              });
-          }
+          Provider
+            .create({
+              name: providerName
+            }).then(function(provider) {
+              provider_id = provider.id;
+              createVPS();
+            })
+            .catch(function(err) {
+              res.send(500, err);
+            });
         }
+      })
+      .catch(function(err) {
+        res.send(500, err);
       });
 
     function createVPS() {
@@ -165,24 +174,17 @@ module.exports = {
           remark: remark,
           link: link
         })
-        .exec(function(err, vps) {
-          if (err) {
-            console.log(err);
-            res.send(500, {
-              debug: "FATAL ERROR"
-            });
-          } else {
-            res.send(vps);
-            Cache.del('vpsIndex');
-            Cache.del('vpsTotal');
-            Cache.del('allPlans');
-          }
+        .then(function(vps) {
+          res.send(vps);
+        })
+        .catch(function(err) {
+          res.send(500, err);
         });
     }
   },
   update: function(req, res) {
     var id = req.param('id');
-    var provider = req.param('provider');
+    var providerName = req.param('provider');
     var name = req.param('name');
     var cpu = req.param('cpu');
     var ram = req.param('ram');
@@ -199,37 +201,28 @@ module.exports = {
     var remark = req.param('remark');
     var provider_id;
     Provider
-      .find({
-        name: provider
+      .findOne({
+        name: providerName
       })
-      .exec(function(err, providers) {
-        if (err) {
-          console.log(err);
-          res.send(500, {
-            debug: "FATAL ERROR"
-          });
+      .then(function(provider) {
+        if (provider) {
+          provider_id = provider.id;
+          updateVPS();
         } else {
-          if (providers.length > 0) {
-            provider_id = providers[0].id;
-            updateVPS();
-          } else {
-            Provider
-              .create({
-                name: provider
-              }).exec(function(err, provider) {
-                if (err) {
-                  console.log(err);
-                  res.send(500, {
-                    debug: "FATAL ERROR"
-                  });
-                } else {
-                  Cache.del('providerIndex');
-                  provider_id = provider.id;
-                  updateVPS();
-                }
-              });
-          }
+          Provider
+            .create({
+              name: providerName
+            }).then(function(provider) {
+              provider_id = provider.id;
+              updateVPS();
+            })
+            .catch(function(err) {
+              res.send(500, err);
+            });
         }
+      })
+      .catch(function(err) {
+        res.send(500, err);
       });
 
     function updateVPS() {
@@ -254,20 +247,11 @@ module.exports = {
           remark: remark,
           link: link
         })
-        .exec(function(err, vps) {
-          if (err) {
-            console.log(err);
-            res.send(500, {
-              debug: "FATAL ERROR"
-            });
-          } else {
-            res.send(vps[0]);
-            Cache.del('vpsIndex');
-            Cache.del('vps' + id);
-            Cache.del('vpsPlan' + id);
-            Cache.del('vpsTotal');
-            Cache.del('allPlans');
-          }
+        .then(function(vps) {
+          res.send(vps[0]);
+        })
+        .catch(function(err) {
+          res.send(500, err);
         });
     }
   },
@@ -276,17 +260,13 @@ module.exports = {
     Vps
       .destroy({
         id: id
-      }).exec(function(err) {
-        if (err) {
-          console.log(err);
-          res.send(500, {
-            debug: "FATAL ERROR"
-          });
-        } else {
-          res.send(200, {
-            debug: "SUCCESS"
-          });
-        }
+      }).then(function() {
+        res.send(200, {
+          debug: "SUCCESS"
+        });
+      })
+      .catch(function(err) {
+        res.send(500, err);
       });
   },
   export: function(req, res) {

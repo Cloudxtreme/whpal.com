@@ -79,17 +79,19 @@ module.exports = {
       .update({
         id: newlyInsertedRecord.id
       }, newlyInsertedRecord)
-      .exec(function(err, vps) {
+      .then(function(vps) {
         cb();
+        Cache.del('vpsIndex');
+        Cache.del('vpsTotal');
+        Cache.del('allPlans');
       });
   },
   beforeUpdate: function(valuesToUpdate, cb) {
     Provider
-      .find({
+      .findOne({
         id: valuesToUpdate.provider
       })
-      .exec(function(err, provider) {
-        var provider = provider[0];
+      .then(function(provider) {
         valuesToUpdate.slug = slug(valuesToUpdate.id + '-' + provider.name + '-' + valuesToUpdate.name);
         cb();
       });
@@ -97,5 +99,10 @@ module.exports = {
   afterUpdate: function(updatedRecord, cb) {
     Render.vps(updatedRecord.slug);
     cb();
+    Cache.del('vpsIndex');
+    Cache.del('vps' + updatedRecord.id);
+    Cache.del('vpsPlan' + updatedRecord.id);
+    Cache.del('vpsTotal');
+    Cache.del('allPlans');
   }
 };

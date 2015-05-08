@@ -20,7 +20,7 @@ module.exports = {
       type: 'integer',
       columnName: 'cloud_cpu'
     },
-    maxCpu:{
+    maxCpu: {
       type: 'integer',
       columnName: 'cloud_max_cpu'
     },
@@ -127,17 +127,19 @@ module.exports = {
       .update({
         id: newlyInsertedRecord.id
       }, newlyInsertedRecord)
-      .exec(function(err, cloud) {
+      .then(function(cloud) {
         cb();
+        Cache.del('cloudIndex');
+        Cache.del('cloudTotal');
+        Cache.del('allPlans');
       });
   },
   beforeUpdate: function(valuesToUpdate, cb) {
     Provider
-      .find({
+      .findOne({
         id: valuesToUpdate.provider
       })
-      .exec(function(err, provider) {
-        var provider = provider[0];
+      .then(function(provider) {
         valuesToUpdate.slug = slug(valuesToUpdate.id + '-' + provider.name + '-' + valuesToUpdate.name);
         cb();
       });
@@ -145,5 +147,10 @@ module.exports = {
   afterUpdate: function(updatedRecord, cb) {
     Render.cloud(updatedRecord.slug);
     cb();
+    Cache.del('cloudIndex');
+    Cache.del('cloud' + updatedRecord.id);
+    Cache.del('cloudPlan' + updatedRecord.id);
+    Cache.del('cloudTotal');
+    Cache.del('allPlans');
   }
 };

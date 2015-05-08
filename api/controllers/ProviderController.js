@@ -16,9 +16,12 @@ module.exports = {
         .sort({
           'updatedAt': 'desc'
         })
-        .exec(function(err, providers) {
+        .then(function(providers) {
           res.send(providers);
           Cache.set('providerIndex', providers);
+        })
+        .catch(function(err) {
+          res.send(500, err);
         });
     }
   },
@@ -29,13 +32,16 @@ module.exports = {
       res.send(providerCache);
     } else {
       Provider
-        .find({
+        .findOne({
           id: id
         })
-        .exec(function(err, provider) {
-          res.send(provider[0]);
-          Cache.set('provider' + id, provider[0]);
+        .then(function(provider) {
+          res.send(provider);
+          Cache.set('provider' + id, provider);
         })
+        .catch(function(err) {
+          res.send(500, err);
+        });
     }
   },
   create: function(req, res) {
@@ -47,16 +53,11 @@ module.exports = {
         name: name,
         description: description,
         link: link
-      }).exec(function(err, provider) {
-        if (err) {
-          console.log(err);
-          res.send(500, {
-            debug: "FATAL ERROR"
-          });
-        } else {
-          res.send(provider);
-          Cache.del('providerIndex');
-        }
+      }).then(function(provider) {
+        res.send(provider);
+      })
+      .catch(function(err) {
+        res.send(500, err);
       });
   },
   update: function(req, res) {
@@ -72,16 +73,11 @@ module.exports = {
         name: name,
         description: description,
         link: link
-      }).exec(function(err, provider) {
-        if (err) {
-          res.send(500, {
-            debug: "FATAL ERROR"
-          });
-        } else {
-          res.send(provider[0]);
-          Cache.del('provider' + id);
-          Cache.del('providerIndex');
-        }
+      }).then(function(provider) {
+        res.send(provider[0]);
+      })
+      .catch(function(err) {
+        res.send(500, err);
       });
   },
   plans: function(req, res) {
@@ -94,7 +90,7 @@ module.exports = {
       .sort({
         price: 'asc'
       })
-      .exec(function(err, vps) {
+      .then(function(vps) {
         result.vps = vps;
         Cloud
           .find({
@@ -103,7 +99,7 @@ module.exports = {
           .sort({
             monthPrice: 'asc'
           })
-          .exec(function(err, cloud) {
+          .then(function(cloud) {
             result.cloud = cloud;
             Coupon
               .find({
@@ -115,30 +111,39 @@ module.exports = {
               .sort({
                 expired: 'asc'
               })
-              .exec(function(err, coupon) {
+              .then(function(coupon) {
                 result.coupon = coupon;
                 res.json(result);
               })
+              .catch(function(err) {
+                res.send(500, err);
+              });
           })
+          .catch(function(err) {
+            res.send(500, err);
+          });
       })
+      .catch(function(err) {
+        res.send(500, err);
+      });
   },
-  export: function(req, res) {
-    Provider
-      .find()
-      .exec(function(err, provider) {
-        for (i = 0; i < provider.length; i++) {
-          var row = provider[i];
-          Provider
-            .update({
-              id: row.id
-            }, row)
-            .exec(function(err, provider) {
+  // export: function(req, res) {
+  //   Provider
+  //     .find()
+  //     .exec(function(err, provider) {
+  //       for (i = 0; i < provider.length; i++) {
+  //         var row = provider[i];
+  //         Provider
+  //           .update({
+  //             id: row.id
+  //           }, row)
+  //           .exec(function(err, provider) {
 
-            });
-        }
-        res.send('finish');
-      })
-  },
+  //           });
+  //       }
+  //       res.send('finish');
+  //     })
+  // },
   render: function(req, res) {
     var page = req.param('page');
     var request = require('request');

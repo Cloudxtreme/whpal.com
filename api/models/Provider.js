@@ -39,6 +39,10 @@ module.exports = {
       defaultsTo: ''
     }
   },
+  afterCreate: function(newlyInsertedRecord, cb) {
+    cb();
+    Cache.del('providerIndex');
+  },
   beforeUpdate: function(valuesToUpdate, cb) {
     alexa(valuesToUpdate.link, function(error, result) {
       if (!error) {
@@ -54,5 +58,8 @@ module.exports = {
   afterUpdate: function(updatedRecord, cb) {
     Render.provider(updatedRecord.slug);
     cb();
+    Cache.del('providerIndex');
+    Cache.del('provider' + updatedRecord.id);
+    Cache.del('providerIndex');
   }
 };

@@ -126,8 +126,12 @@ ul{
 .logo-menu{
   display: none;
   text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px;
 }
 .logo-text{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px;
   float: left;
   line-height: 54px;
   margin-left: 10px;

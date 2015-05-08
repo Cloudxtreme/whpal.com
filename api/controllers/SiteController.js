@@ -40,7 +40,7 @@ module.exports = {
         .sort({
           updatedAt: 'desc'
         })
-        .exec(function(err, vps) {
+        .then(function(vps) {
           result.vps = vps;
           Cloud
             .find()
@@ -49,12 +49,18 @@ module.exports = {
             .sort({
               updatedAt: 'desc'
             })
-            .exec(function(err, cloud) {
+            .then(function(cloud) {
               result.cloud = cloud;
               res.json(result);
               Cache.set('allPlans', result);
             })
+            .catch(function(err) {
+              res.send(500, err);
+            });
         })
+        .catch(function(err) {
+          res.send(500, err);
+        });
     }
   },
   sitemap: function(req, res) {
@@ -74,7 +80,7 @@ module.exports = {
     sitemap += '\t</url>\n';
     Vps
       .find()
-      .exec(function(err, vps) {
+      .then(function(vps) {
         for (i = 0; i < vps.length; i++) {
           row = vps[i];
           lastmod = new Date(row.updatedAt);
@@ -86,12 +92,15 @@ module.exports = {
           sitemap += '\t</url>\n';
         }
         cloud();
+      })
+      .catch(function(err) {
+        console.log(err);
       });
 
     function cloud() {
       Cloud
         .find()
-        .exec(function(err, cloud) {
+        .then(function(cloud) {
           for (i = 0; i < cloud.length; i++) {
             row = cloud[i];
             lastmod = new Date(row.updatedAt);
@@ -105,6 +114,9 @@ module.exports = {
           sitemap += '</urlset>';
           res.setHeader('Content-type', 'text/xml');
           res.send(sitemap);
+        })
+        .catch(function(err) {
+          console.log(err);
         });
     }
   }

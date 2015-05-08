@@ -14,13 +14,17 @@ module.exports = {
     } else {
       Cloud
         .find()
-        .exec(function(err, cloud) {
+        .then(function(err, cloud) {
           res.send({
             total: cloud.length
           });
           Cache.set('cloudTotal', {
             total: cloud.length
           });
+        })
+        .catch(function(err) {
+          res.send(500, err);
+          Cache.del('cloudTotal');
         });
     }
   },
@@ -35,9 +39,12 @@ module.exports = {
         .sort({
           updatedAt: 'desc'
         })
-        .exec(function(err, cloud) {
+        .then(function(cloud) {
           res.send(cloud);
           Cache.set('cloudIndex', cloud);
+        })
+        .catch(function(err) {
+          res.send(500, err);
         });
     }
   },
@@ -48,14 +55,17 @@ module.exports = {
       res.send(cloudCache);
     } else {
       Cloud
-        .find({
+        .findOne({
           id: id
         })
         .populate('provider')
-        .exec(function(err, cloud) {
-          res.send(cloud[0]);
-          Cache.set('cloud' + id, cloud[0]);
+        .then(function(cloud) {
+          res.send(cloud);
+          Cache.set('cloud' + id, cloud);
         })
+        .catch(function(err) {
+          res.send(500, err);
+        });
     }
   },
   similar: function(req, res) {
@@ -69,7 +79,7 @@ module.exports = {
           id: id
         })
         .populate('provider')
-        .exec(function(err, cloud) {
+        .then(function(cloud) {
           Cloud
             .find({
               id: {
@@ -89,15 +99,19 @@ module.exports = {
             })
             .populate('provider')
             .limit(10)
-            .exec(function(err, cloud) {
+            .then(function(cloud) {
               res.send(cloud);
               Cache.set('cloudPlan' + id, cloud);
             })
         })
+        .catch(function(err) {
+          res.send(500, err);
+          Cache.del('cloudPlan' + id);
+        });
     }
   },
   create: function(req, res) {
-    var provider = req.param('provider');
+    var providerName = req.param('provider');
     var name = req.param('name');
     var cpu = req.param('cpu');
     var maxCpu = req.param('maxCpu');
@@ -123,37 +137,28 @@ module.exports = {
     var remark = req.param('remark');
     var provider_id;
     Provider
-      .find({
-        name: provider
+      .findOne({
+        name: providerName
       })
-      .exec(function(err, providers) {
-        if (err) {
-          console.log(err);
-          res.send(500, {
-            debug: "FATAL ERROR"
-          });
+      .then(function(provider) {
+        if (provider) {
+          provider_id = provider.id;
+          createCloud();
         } else {
-          if (providers.length > 0) {
-            provider_id = providers[0].id;
-            createCloud();
-          } else {
-            Provider
-              .create({
-                name: provider
-              }).exec(function(err, provider) {
-                if (err) {
-                  console.log(err);
-                  res.send(500, {
-                    debug: "FATAL ERROR"
-                  });
-                } else {
-                  Cache.del('providerIndex');
-                  provider_id = provider.id;
-                  createCloud();
-                }
-              });
-          }
+          Provider
+            .create({
+              name: providerName
+            }).then(function(provider) {
+              provider_id = provider.id;
+              createCloud();
+            })
+            .catch(function(err) {
+              res.send(500, err);
+            });
         }
+      })
+      .catch(function(err) {
+        res.send(500, err);
       });
 
     function createCloud() {
@@ -184,24 +189,18 @@ module.exports = {
           remark: remark,
           link: link
         })
-        .exec(function(err, cloud) {
-          if (err) {
-            console.log(err);
-            res.send(500, {
-              debug: "FATAL ERROR"
-            });
-          } else {
-            res.send(cloud);
-            Cache.del('cloudIndex');
-            Cache.del('cloudTotal');
-            Cache.del('allPlans');
-          }
+        .then(function(cloud) {
+          res.send(cloud);
+        })
+        .catch(function(err) {
+          console.log(err);
+          res.send(500, err);
         });
     }
   },
   update: function(req, res) {
     var id = req.param('id');
-    var provider = req.param('provider');
+    var providerName = req.param('provider');
     var name = req.param('name');
     var cpu = req.param('cpu');
     var maxCpu = req.param('maxCpu');
@@ -227,37 +226,28 @@ module.exports = {
     var remark = req.param('remark');
     var provider_id;
     Provider
-      .find({
-        name: provider
+      .findOne({
+        name: providerName
       })
-      .exec(function(err, providers) {
-        if (err) {
-          console.log(err);
-          res.send(500, {
-            debug: "FATAL ERROR"
-          });
+      .then(function(provider) {
+        if (provider) {
+          provider_id = provider.id;
+          updateCloud();
         } else {
-          if (providers.length > 0) {
-            provider_id = providers[0].id;
-            updateCloud();
-          } else {
-            Provider
-              .create({
-                name: provider
-              }).exec(function(err, provider) {
-                if (err) {
-                  console.log(err);
-                  res.send(500, {
-                    debug: "FATAL ERROR"
-                  });
-                } else {
-                  Cache.del('providerIndex');
-                  provider_id = provider.id;
-                  updateCloud();
-                }
-              });
-          }
+          Provider
+            .create({
+              name: providerName
+            }).then(function(provider) {
+              provider_id = provider.id;
+              updateCloud();
+            })
+            .catch(function(err) {
+              res.send(500, err);
+            });
         }
+      })
+      .catch(function(err) {
+        res.send(500, err);
       });
 
     function updateCloud() {
@@ -291,20 +281,11 @@ module.exports = {
           remark: remark,
           link: link
         })
-        .exec(function(err, cloud) {
-          if (err) {
-            console.log(err);
-            res.send(500, {
-              debug: "FATAL ERROR"
-            });
-          } else {
-            res.send(cloud[0]);
-            Cache.del('cloudIndex');
-            Cache.del('cloud' + id);
-            Cache.del('cloudPlan' + id);
-            Cache.del('cloudTotal');
-            Cache.del('allPlans');
-          }
+        .then(function(cloud) {
+          res.send(cloud[0]);
+        })
+        .catch(function(err) {
+          res.send(500, err);
         });
     }
   },
@@ -313,17 +294,13 @@ module.exports = {
     Cloud
       .destroy({
         id: id
-      }).exec(function(err) {
-        if (err) {
-          console.log(err);
-          res.send(500, {
-            debug: "FATAL ERROR"
-          });
-        } else {
-          res.send(200, {
-            debug: "SUCCESS"
-          });
-        }
+      }).then(function(err) {
+        res.send(200, {
+          debug: "SUCCESS"
+        });
+      })
+      .catch(function(err) {
+        res.send(500, err);
       });
   },
   render: function(req, res) {
