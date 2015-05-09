@@ -14,7 +14,7 @@ module.exports = {
     } else {
       Cloud
         .find()
-        .then(function(err, cloud) {
+        .then(function(cloud) {
           res.send({
             total: cloud.length
           });

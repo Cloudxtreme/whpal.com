@@ -92,12 +92,12 @@
     </table>
   </div>
 </div>
-<div ng-show="compareTable" class="overlay-black">
+<div ng-class="compareTable? 'show':'hide'" class="hide overlay-black">
   <div ng-click="compareTable = false" class="close-overlay">
     <i class="fa fa-close"></i>
   </div>
 </div>
-<div ng-show="compareTable" class="comparison-table">
+<div ng-class="compareTable? 'show':'hide'" class="hide comparison-table">
   <div class="comparison-table-outer-container">
     <div style="width:{{compareTableWidth}}px" class="comparison-table-inner-container">
       <div ng-repeat="row in compareItems" ng-class="compareItems.length > 1 && compareItems.length === ($index+1) ? 'last-compare' : ''" class="comparison-table-plan">
@@ -117,7 +117,7 @@
           <div><span ng-bind-html="row.ipv4 | ipv4Filter"></span><span ng-bind-html="row.ipv6 | ipv6Filter"></span></div>
         </div>
       </div>
-      <div ng-show="compareItems.length === 1" class="add-more-col">
+      <div ng-class="compareItems.length === 1? 'show':'hide'" class="hide add-more-col">
         <div class="comparison-table-plan-header">
           <div class="plan-add-more"><i class="fa fa-question-circle"></i></div>
         </div>
