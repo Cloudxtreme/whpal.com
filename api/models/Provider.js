@@ -61,5 +61,23 @@ module.exports = {
     Cache.del('providerIndex');
     Cache.del('provider' + updatedRecord.id);
     Cache.del('providerIndex');
+    Cloud
+      .find({
+        provider: updatedRecord.id
+      })
+      .then(function(cloud) {
+        for (i = 0; i < cloud.length; i++) {
+          Cache.del('cloud' + cloud[i].id);
+        }
+      })
+    Vps
+      .find({
+        provider: updatedRecord.id
+      })
+      .then(function(vps) {
+        for (i = 0; i < vps.length; i++) {
+          Cache.del('vps' + vps[i].id);
+        }
+      })
   }
 };

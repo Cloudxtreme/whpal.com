@@ -349,7 +349,7 @@ var app = angular.module('backendApp', [
                 if (row.ram < criteria.minram || (row.ram > criteria.maxram && criteria.maxram < 16)) {
                   return;
                 }
-                if (row.hdspace < criteria.minhd || row.hdspace > criteria.maxhd) {
+                if (row.hdspace < criteria.minhd || (row.hdspace > criteria.maxhd && criteria.maxhd < 1000)) {
                   return;
                 }
                 if (row.bandwidth < criteria.minbandwidth || (row.bandwidth > criteria.maxbandwidth && criteria.maxbandwidth < 10000)) {
